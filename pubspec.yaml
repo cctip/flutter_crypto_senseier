@@ -1,0 +1,53 @@
+name: flutter_crypto_senseier
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_native_splash: ^2.4.6
+  get: ^4.7.2
+  url_launcher: ^6.3.1
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/images/
+    - assets/images/tabbar/
+    - assets/images/avator/
+
+  fonts:
+    - family: Mulish
+      fonts: 
+        - asset: assets/fonts/Mulish/Mulish-Italic-VariableFont_wght.ttf
+        - asset: assets/fonts/Mulish/Mulish-VariableFont_wght.ttf
+        - asset: assets/fonts/Mulish/Mulish-Black.ttf
+        - asset: assets/fonts/Mulish/Mulish-BlackItalic.ttf
+        - asset: assets/fonts/Mulish/Mulish-Bold.ttf
+        - asset: assets/fonts/Mulish/Mulish-BoldItalic.ttf
+        - asset: assets/fonts/Mulish/Mulish-ExtraBold.ttf
+        - asset: assets/fonts/Mulish/Mulish-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Mulish/Mulish-ExtraLight.ttf
+        - asset: assets/fonts/Mulish/Mulish-ExtraLightItalic.ttf
+        - asset: assets/fonts/Mulish/Mulish-Italic.ttf
+        - asset: assets/fonts/Mulish/Mulish-Light.ttf
+        - asset: assets/fonts/Mulish/Mulish-LightItalic.ttf
+        - asset: assets/fonts/Mulish/Mulish-Medium.ttf
+        - asset: assets/fonts/Mulish/Mulish-MediumItalic.ttf
+        - asset: assets/fonts/Mulish/Mulish-Regular.ttf
+        - asset: assets/fonts/Mulish/Mulish-SemiBold.ttf
+        - asset: assets/fonts/Mulish/Mulish-SemiBoldItalic.ttf
+          style: italic
