@@ -18,49 +18,308 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: MediaQuery.of(context).padding.top + 250,
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFF1D4ED8),
-                Color(0xFF4C1AE2),
-              ],
-              stops: [0, 1], // 调整渐变范围
-            ),
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24), bottomRight: Radius.circular(24))
-          ),
-          child: Column(
-            children: [
-              UserBox(theme: 'dark'),
-              HeaderBox()
-            ],
-          ),
-        ),
-        Expanded(child: CustomScrollView(slivers: [
-          SliverToBoxAdapter(
-            child: Container(),
-          )
-        ]))
-      ],
+    return Container(
+      color: Color(0xFFF1F5F9),
+      child: Column(
+        children: [
+          HeaderBox(),
+          Expanded(child: CustomScrollView(slivers: [
+            SliverToBoxAdapter(
+              child: Container(
+                padding: EdgeInsets.fromLTRB(16, 16, 16, MediaQuery.of(context).padding.bottom + 58 + 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset('assets/images/bg/challenge.png'),
+                    SizedBox(height: 24),
+                    DailyTask(),
+                    SizedBox(height: 24),
+                    CommonSence(),
+                  ]
+                ),
+              ),
+            )
+          ]))
+        ],
+      ),
     );
   }
 
   Widget HeaderBox() {
     return Container(
-      child: Row(
+      height: MediaQuery.of(context).padding.top + 250,
+      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFF1D4ED8),
+            Color(0xFF4C1AE2),
+          ],
+          stops: [0, 1], // 调整渐变范围
+        ),
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24), bottomRight: Radius.circular(24))
+      ),
+      child: Column(
         children: [
-          Expanded(child: Container(
-            height: 146,
-            
-          ))
+          UserBox(theme: 'dark'),
+          Container(
+            height: 194,
+            alignment: Alignment.center,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          height: 146,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xFF94FF22),
+                                Color(0xFFC8FF24),
+                              ],
+                              stops: [0, 1], // 调整渐变范围
+                            ),
+                            borderRadius: BorderRadius.circular(16)
+                          ),
+                        ),
+                        Container(
+                          height: 106,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.white
+                          ),
+                          child: Column(children: [
+                            SizedBox(height: 14),
+                            Text('Miner', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700)),
+                            SizedBox(height: 2),
+                            Text('Beginners', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500)),
+                            SizedBox(height: 12),
+                            SizedBox(width: 72, height: 24, child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.all(0),
+                                foregroundColor: Colors.white,
+                                backgroundColor: Color(0xFF15171C),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              ),
+                              onPressed: () {},
+                              child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
+                            ))
+                          ]),
+                        ),
+                        Positioned(top: -16, child: Image.asset('assets/icons/tab_miner.png', width: 56))
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          height: 146,
+                          decoration: BoxDecoration(
+                            // color: Color(0xFFE2E8F0),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xFF18B8EE),
+                                Color(0xFF0FFFE3),
+                              ],
+                              stops: [0, 1], // 调整渐变范围
+                            ),
+                            borderRadius: BorderRadius.circular(16)
+                          ),
+                        ),
+                        Container(
+                          height: 106,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.white
+                          ),
+                          child: Column(children: [
+                            SizedBox(height: 14),
+                            Text('Tader', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700)),
+                            SizedBox(height: 2),
+                            Text('Experienced users', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500)),
+                            SizedBox(height: 12),
+                            SizedBox(width: 72, height: 24, child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.all(0),
+                                foregroundColor: Colors.white,
+                                backgroundColor: Color(0xFF15171C),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              ),
+                              onPressed: () {},
+                              child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
+                            ))
+                          ]),
+                        ),
+                        Positioned(top: -16, child: Image.asset('assets/icons/tab_trader.png', width: 56))
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          height: 146,
+                          decoration: BoxDecoration(
+                            // color: Color(0xFFE2E8F0),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xFFE215AB),
+                                Color(0xFFE527FE),
+                              ],
+                              stops: [0, 1], // 调整渐变范围
+                            ),
+                            borderRadius: BorderRadius.circular(16)
+                          ),
+                        ),
+                        Container(
+                          height: 106,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.white
+                          ),
+                          child: Column(children: [
+                            SizedBox(height: 14),
+                            Text('Oracle', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700)),
+                            SizedBox(height: 2),
+                            Text('Advanced users', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500)),
+                            SizedBox(height: 12),
+                            SizedBox(width: 72, height: 24, child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.all(0),
+                                foregroundColor: Colors.white,
+                                backgroundColor: Color(0xFF15171C),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              ),
+                              onPressed: () {},
+                              child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
+                            ))
+                          ]),
+                        ),
+                        Positioned(top: -16, child: Image.asset('assets/icons/tab_oracle.png', width: 56))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
+    );
+  }
+
+  Widget DailyTask() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Daily Task', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
+        SizedBox(height: 8),
+        Container(
+          height: 56,
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16)
+          ),
+          child: Row(children: [
+            Text('Complete a Lesson', style: TextStyle(color: Color(0xFF15171C), fontWeight: FontWeight.w500)),
+            SizedBox(width: 8),
+            Text('+200', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700)),
+            SizedBox(width: 2),
+            Image.asset('assets/icons/xp.png', width: 16),
+            Spacer(),
+            SizedBox(width: 54, height: 24, child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(0),
+                foregroundColor: Colors.white,
+                backgroundColor: Color(0xFF15171C),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              ),
+              onPressed: () {},
+              child: Text('Claim', style: TextStyle(fontWeight: FontWeight.w500))
+            )),
+          ]),
+        ),
+        SizedBox(height: 8),
+        Container(
+          height: 56,
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16)
+          ),
+          child: Row(children: [
+            Text('Complete a Duel', style: TextStyle(color: Color(0xFF15171C), fontWeight: FontWeight.w500)),
+            SizedBox(width: 8),
+            Text('+200', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700)),
+            SizedBox(width: 2),
+            Image.asset('assets/icons/xp.png', width: 16),
+            Spacer(),
+            SizedBox(width: 54, height: 24, child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(0),
+                foregroundColor: Colors.white,
+                backgroundColor: Color(0xFF15171C),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              ),
+              onPressed: () {},
+              child: Text('Claim', style: TextStyle(fontWeight: FontWeight.w500))
+            )),
+          ]),
+        )
+      ]
+    );
+  }
+
+  Widget CommonSence() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Common Sence', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
+        SizedBox(height: 8),
+        Row(children: [
+          Image.asset('assets/images/bg/sence_1.png', width: MediaQuery.of(context).size.width / 2 - 20),
+          SizedBox(width: 8),
+          Image.asset('assets/images/bg/sence_2.png', width: MediaQuery.of(context).size.width / 2 - 20),
+        ]),
+        SizedBox(height: 8),
+        Row(children: [
+          Image.asset('assets/images/bg/sence_3.png', width: MediaQuery.of(context).size.width / 2 - 20),
+          SizedBox(width: 8),
+          Image.asset('assets/images/bg/sence_4.png', width: MediaQuery.of(context).size.width / 2 - 20),
+        ]),
+        SizedBox(height: 8),
+        Row(children: [
+          Image.asset('assets/images/bg/sence_5.png', width: MediaQuery.of(context).size.width / 2 - 20),
+          SizedBox(width: 8),
+          Image.asset('assets/images/bg/sence_6.png', width: MediaQuery.of(context).size.width / 2 - 20),
+        ]),
+        SizedBox(height: 8),
+        Image.asset('assets/images/bg/sence_7.png', width: MediaQuery.of(context).size.width / 2 - 20),
+      ],
     );
   }
 }
