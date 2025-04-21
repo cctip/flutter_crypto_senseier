@@ -28,6 +28,7 @@ flutter:
     - assets/images/
     - assets/images/tabbar/
     - assets/images/avator/
+    - assets/images/bg/
 
   fonts:
     - family: Mulish

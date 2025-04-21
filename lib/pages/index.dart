@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import './home.dart';
 import './course.dart';
@@ -13,7 +15,7 @@ class IndexPage extends StatefulWidget {
 }
 
 class IndexPageState extends State<IndexPage> {
-  int currentIndex = 1;
+  int currentIndex = 0;
 
   /// Tab 改变
   void onTabChanged(int index) {
@@ -39,7 +41,50 @@ class IndexPageState extends State<IndexPage> {
               RankingPage()
             ],
           ),
+          TabbarBox()
         ],
+      ),
+    );
+  }
+
+  Widget TabbarBox() {
+    return Positioned(child: Container(
+      height: 58 + MediaQuery.of(context).padding.bottom,
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom, left: 12, right: 12),
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TabbarItem(icon: 'home', text: 'Home', index: 0),
+          TabbarItem(icon: 'course', text: 'Course', index: 1),
+          TabbarItem(icon: 'battle', text: 'Battle', index: 2),
+          TabbarItem(icon: 'ranking', text: 'Ranking', index: 3),
+        ],
+      )
+    ));
+  }
+  Widget TabbarItem({icon, text, index}) {
+    return GestureDetector(
+      onTap: () => onTabChanged(index),
+      child: Container(
+        width: (MediaQuery.of(context).size.width - 24) / 4,
+        height: 58,
+        color: Colors.white,
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/tabbar/$icon${currentIndex == index ? '_ac' : ''}.png', width: 24),
+            SizedBox(height: 4),
+            Text('$text', style: TextStyle(color: Color(currentIndex == index ? 0xFF282B32 : 0xFFA2A6AF), fontSize: 12, fontWeight: FontWeight.w500))
+          ],
+        ),
       ),
     );
   }
