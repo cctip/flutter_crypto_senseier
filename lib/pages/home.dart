@@ -71,161 +71,170 @@ class HomePageState extends State<HomePage> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
-                  Expanded(
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          height: 146,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color(0xFF94FF22),
-                                Color(0xFFC8FF24),
-                              ],
-                              stops: [0, 1], // 调整渐变范围
-                            ),
-                            borderRadius: BorderRadius.circular(16)
-                          ),
-                        ),
-                        Container(
-                          height: 106,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Colors.white
-                          ),
-                          child: Column(children: [
-                            SizedBox(height: 14),
-                            Text('Miner', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700)),
-                            SizedBox(height: 2),
-                            Text('Beginners', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500)),
-                            SizedBox(height: 12),
-                            SizedBox(width: 72, height: 24, child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.all(0),
-                                foregroundColor: Colors.white,
-                                backgroundColor: Color(0xFF15171C),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                              ),
-                              onPressed: () {},
-                              child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
-                            ))
-                          ]),
-                        ),
-                        Positioned(top: -16, child: Image.asset('assets/icons/tab_miner.png', width: 56))
-                      ],
-                    ),
-                  ),
+                  HeaderMiner(),
                   SizedBox(width: 8),
-                  Expanded(
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          height: 146,
-                          decoration: BoxDecoration(
-                            // color: Color(0xFFE2E8F0),
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color(0xFF18B8EE),
-                                Color(0xFF0FFFE3),
-                              ],
-                              stops: [0, 1], // 调整渐变范围
-                            ),
-                            borderRadius: BorderRadius.circular(16)
-                          ),
-                        ),
-                        Container(
-                          height: 106,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Colors.white
-                          ),
-                          child: Column(children: [
-                            SizedBox(height: 14),
-                            Text('Tader', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700)),
-                            SizedBox(height: 2),
-                            Text('Experienced users', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500)),
-                            SizedBox(height: 12),
-                            SizedBox(width: 72, height: 24, child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.all(0),
-                                foregroundColor: Colors.white,
-                                backgroundColor: Color(0xFF15171C),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                              ),
-                              onPressed: () {},
-                              child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
-                            ))
-                          ]),
-                        ),
-                        Positioned(top: -16, child: Image.asset('assets/icons/tab_trader.png', width: 56))
-                      ],
-                    ),
-                  ),
+                  HeaderTrader(),
                   SizedBox(width: 8),
-                  Expanded(
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          height: 146,
-                          decoration: BoxDecoration(
-                            // color: Color(0xFFE2E8F0),
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color(0xFFE215AB),
-                                Color(0xFFE527FE),
-                              ],
-                              stops: [0, 1], // 调整渐变范围
-                            ),
-                            borderRadius: BorderRadius.circular(16)
-                          ),
-                        ),
-                        Container(
-                          height: 106,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Colors.white
-                          ),
-                          child: Column(children: [
-                            SizedBox(height: 14),
-                            Text('Oracle', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700)),
-                            SizedBox(height: 2),
-                            Text('Advanced users', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500)),
-                            SizedBox(height: 12),
-                            SizedBox(width: 72, height: 24, child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.all(0),
-                                foregroundColor: Colors.white,
-                                backgroundColor: Color(0xFF15171C),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                              ),
-                              onPressed: () {},
-                              child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
-                            ))
-                          ]),
-                        ),
-                        Positioned(top: -16, child: Image.asset('assets/icons/tab_oracle.png', width: 56))
-                      ],
-                    ),
-                  ),
+                  HeaderOracle(),
                 ],
               ),
             ),
           )
+        ],
+      ),
+    );
+  }
+  Widget HeaderMiner() {
+    return Expanded(
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            height: 146,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF94FF22),
+                  Color(0xFFC8FF24),
+                ],
+                stops: [0, 1], // 调整渐变范围
+              ),
+              borderRadius: BorderRadius.circular(16)
+            ),
+          ),
+          Container(
+            height: 106,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.white
+            ),
+            child: Column(children: [
+              SizedBox(height: 14),
+              Text('Miner', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700)),
+              SizedBox(height: 2),
+              Text('Beginners', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500)),
+              SizedBox(height: 12),
+              SizedBox(width: 72, height: 24, child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(0),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Color(0xFF15171C),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: () {},
+                child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
+              ))
+            ]),
+          ),
+          Positioned(top: -16, child: Image.asset('assets/icons/tab_miner.png', width: 56))
+        ],
+      ),
+    );
+  }
+  Widget HeaderTrader() {
+    return Expanded(
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            height: 146,
+            decoration: BoxDecoration(
+              // color: Color(0xFFE2E8F0),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF18B8EE),
+                  Color(0xFF0FFFE3),
+                ],
+                stops: [0, 1], // 调整渐变范围
+              ),
+              borderRadius: BorderRadius.circular(16)
+            ),
+          ),
+          Container(
+            height: 106,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.white
+            ),
+            child: Column(children: [
+              SizedBox(height: 14),
+              Text('Trader', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700)),
+              SizedBox(height: 2),
+              Text('Experienced users', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500)),
+              SizedBox(height: 12),
+              SizedBox(width: 72, height: 24, child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(0),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Color(0xFF15171C),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: () {},
+                child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
+              ))
+            ]),
+          ),
+          Positioned(top: -16, child: Image.asset('assets/icons/tab_trader.png', width: 56))
+        ],
+      ),
+    );
+  }
+  Widget HeaderOracle() {
+    return Expanded(
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            height: 146,
+            decoration: BoxDecoration(
+              // color: Color(0xFFE2E8F0),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFFE215AB),
+                  Color(0xFFE527FE),
+                ],
+                stops: [0, 1], // 调整渐变范围
+              ),
+              borderRadius: BorderRadius.circular(16)
+            ),
+          ),
+          Container(
+            height: 106,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.white
+            ),
+            child: Column(children: [
+              SizedBox(height: 14),
+              Text('Oracle', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700)),
+              SizedBox(height: 2),
+              Text('Advanced users', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500)),
+              SizedBox(height: 12),
+              SizedBox(width: 72, height: 24, child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(0),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Color(0xFF15171C),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: () {},
+                child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
+              ))
+            ]),
+          ),
+          Positioned(top: -16, child: Image.asset('assets/icons/tab_oracle.png', width: 56))
         ],
       ),
     );

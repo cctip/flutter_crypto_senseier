@@ -35,7 +35,8 @@ class CoursePageState extends State<CoursePage> {
                   children: [
                     Favorites(),
                     CurChapter(),
-                    
+                    SizedBox(height: 16),
+                    ChapterList()
                   ],
                 ),
               ),
@@ -123,38 +124,171 @@ class CoursePageState extends State<CoursePage> {
   }
 
   Widget Favorites() {
-    return Container();
+    return Container(
+      margin: EdgeInsets.only(top: 12, bottom: 12),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Favorites', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
+              Icon(Icons.arrow_forward_ios_rounded, size: 18)
+            ],
+          ),
+          SizedBox(height: 8),
+          LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: constraints.maxWidth),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 177,
+                        height: 184,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image: AssetImage('assets/images/bg/square_blue.png'))
+                        ),
+                        child: Column(children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 32,
+                                height: 32,
+                                padding: EdgeInsets.fromLTRB(0, 4, 4, 4),
+                                child: Image.asset('assets/icons/star_ac.png', width: 24),
+                              ),
+                              Image.asset('assets/icons/arrow_north_east.png', width: 32)
+                            ]
+                          ),
+                          SizedBox(height: 12),
+                          Text('Discussing key features like decentralization, security, and transparency.', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700, height: 1.2)),
+                          Spacer(),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8)
+                            ),
+                            child: Row(children: [
+                              Container(
+                                width: 8,
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF282B32),
+                                  borderRadius: BorderRadius.circular(8)
+                                ),
+                              )
+                            ]),
+                          )
+                        ]),
+                      ),
+                    ],
+                  ),
+                )
+              );
+            }
+          )
+        ],
+      ),
+    );
   }
 
   Widget CurChapter() {
-    return Container();
+    return Container(
+      margin: EdgeInsets.only(top: 12),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Current chapter', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
+              Text('More', style: TextStyle(color: Color(0xFF1D4ED8), fontWeight: FontWeight.w500))
+            ],
+          ),
+          SizedBox(height: 8),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                decoration: BoxDecoration(
+                  color: Color(0xFF1D4ED8),
+                  borderRadius: BorderRadius.circular(16)
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Chapter 1:', style: TextStyle(color: Colors.white54, fontSize: 16, fontWeight: FontWeight.w500)),
+                    SizedBox(height: 4),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 140,
+                      child: Text('What is cryptocurrency?', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700)),
+                    )
+                  ]
+                ),
+              ),
+              Positioned(right: -4, child: Image.asset('assets/icons/chapter_1.png', width: 102))
+            ],
+          )
+        ]
+      )
+    );
   }
 
-  Widget Chapter_1() {
-    return Container();
+  Widget ChapterList() {
+    return Wrap(
+      spacing: 16,
+      runSpacing: 16,
+      children: List.generate(10, (index) => Chapter_item())
+    );
   }
-
-  Widget Chapter_2() {
-    return Container();
-  }
-
-  Widget Chapter_3() {
-    return Container();
-  }
-
-  Widget Chapter_4() {
-    return Container();
-  }
-
-  Widget Chapter_5() {
-    return Container();
-  }
-
-  Widget Chapter_6() {
-    return Container();
-  }
-
-  Widget Chapter_7() {
-    return Container();
+  Widget Chapter_item() {
+    return Container(
+      width: MediaQuery.of(context).size.width / 2 - 24,
+      height: 106,
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16)
+      ),
+      child: Column(children: [
+        Text('Introduction to Digital Currency', style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700, height: 1.1)),
+        Spacer(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('4 topic', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500)),
+            Text('5% complete', style: TextStyle(color: Color(0xFF494D55), fontSize: 11, fontWeight: FontWeight.w400)),
+          ]
+        ),
+        SizedBox(height: 2),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 8,
+          decoration: BoxDecoration(
+            color: Color(0xFFE2E8F0),
+            borderRadius: BorderRadius.circular(8)
+          ),
+          child: Row(children: [
+            Container(
+              width: 8,
+              height: 8,
+              decoration: BoxDecoration(
+                color: Color(0xFF282B32),
+                borderRadius: BorderRadius.circular(8)
+              ),
+            )
+          ]),
+        )
+      ]),
+    );
   }
 }
