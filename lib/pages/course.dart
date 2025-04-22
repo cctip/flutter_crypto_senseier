@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_crypto_senseier/widget/user.dart';
+import 'package:get/get.dart';
 
 class CoursePage extends StatefulWidget {
   const CoursePage({super.key});
@@ -14,10 +15,6 @@ class CoursePageState extends State<CoursePage> {
   @override
   void initState() {
     super.initState();
-  }
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -215,24 +212,29 @@ class CoursePageState extends State<CoursePage> {
           Stack(
             alignment: Alignment.center,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                decoration: BoxDecoration(
-                  color: Color(0xFF1D4ED8),
-                  borderRadius: BorderRadius.circular(16)
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Chapter 1:', style: TextStyle(color: Colors.white54, fontSize: 16, fontWeight: FontWeight.w500)),
-                    SizedBox(height: 4),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width - 140,
-                      child: Text('What is cryptocurrency?', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700)),
-                    )
-                  ]
-                ),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('/chapter');
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1D4ED8),
+                    borderRadius: BorderRadius.circular(16)
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Chapter 1:', style: TextStyle(color: Colors.white54, fontSize: 16, fontWeight: FontWeight.w500)),
+                      SizedBox(height: 4),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 140,
+                        child: Text('What is cryptocurrency?', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700)),
+                      )
+                    ]
+                  ),
+                )
               ),
               Positioned(right: -4, child: Image.asset('assets/icons/chapter_1.png', width: 102))
             ],

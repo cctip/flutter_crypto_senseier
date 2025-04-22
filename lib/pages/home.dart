@@ -34,7 +34,7 @@ class HomePageState extends State<HomePage> {
                     SizedBox(height: 24),
                     DailyTask(),
                     SizedBox(height: 24),
-                    CommonSence(),
+                    CommonSense(),
                   ]
                 ),
               ),
@@ -303,31 +303,31 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  Widget CommonSence() {
+  Widget CommonSense() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Common Sence', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
+        Text('Common Sense', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
         SizedBox(height: 8),
         Row(children: [
-          Image.asset('assets/images/bg/sence_1.png', width: MediaQuery.of(context).size.width / 2 - 20),
+          Image.asset('assets/images/bg/sense_1.png', width: MediaQuery.of(context).size.width / 2 - 20),
           SizedBox(width: 8),
-          Image.asset('assets/images/bg/sence_2.png', width: MediaQuery.of(context).size.width / 2 - 20),
+          Image.asset('assets/images/bg/sense_2.png', width: MediaQuery.of(context).size.width / 2 - 20),
         ]),
         SizedBox(height: 8),
         Row(children: [
-          Image.asset('assets/images/bg/sence_3.png', width: MediaQuery.of(context).size.width / 2 - 20),
+          Image.asset('assets/images/bg/sense_3.png', width: MediaQuery.of(context).size.width / 2 - 20),
           SizedBox(width: 8),
-          Image.asset('assets/images/bg/sence_4.png', width: MediaQuery.of(context).size.width / 2 - 20),
+          Image.asset('assets/images/bg/sense_4.png', width: MediaQuery.of(context).size.width / 2 - 20),
         ]),
         SizedBox(height: 8),
         Row(children: [
-          Image.asset('assets/images/bg/sence_5.png', width: MediaQuery.of(context).size.width / 2 - 20),
+          Image.asset('assets/images/bg/sense_5.png', width: MediaQuery.of(context).size.width / 2 - 20),
           SizedBox(width: 8),
-          Image.asset('assets/images/bg/sence_6.png', width: MediaQuery.of(context).size.width / 2 - 20),
+          Image.asset('assets/images/bg/sense_6.png', width: MediaQuery.of(context).size.width / 2 - 20),
         ]),
         SizedBox(height: 8),
-        Image.asset('assets/images/bg/sence_7.png', width: MediaQuery.of(context).size.width / 2 - 20),
+        Image.asset('assets/images/bg/sense_7.png', width: MediaQuery.of(context).size.width / 2 - 20),
       ],
     );
   }

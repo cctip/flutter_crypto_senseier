@@ -1,17 +1,14 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import '/controller/course.dart';
 
-class LessonPage extends StatefulWidget {
-  const LessonPage({super.key});
+class CommonSense extends StatefulWidget {
+  const CommonSense({super.key});
 
   @override
-  State<LessonPage> createState() => LessonPageState();
+  State<CommonSense> createState() => CommonSenseState();
 }
-class LessonPageState extends State<LessonPage> {
-  List<String> get _chapters => CourseController.chapters;
-  
+class CommonSenseState extends State<CommonSense> {
   @override
   void initState() {
     super.initState();
@@ -27,7 +24,7 @@ class LessonPageState extends State<LessonPage> {
             backgroundColor: Color(0xFFF1F5F9),
             iconTheme: IconThemeData(color: Color(0xFF15171C)),
             centerTitle: true,
-            title: Text('Lesson', style: TextStyle(
+            title: Text('Common Sense', style: TextStyle(
               color: Color(0xFF15171C),
               fontSize: 18,
               fontWeight: FontWeight.bold
@@ -37,7 +34,6 @@ class LessonPageState extends State<LessonPage> {
             SliverToBoxAdapter(child: Container(
               padding: EdgeInsets.fromLTRB(16, 16, 16, MediaQuery.of(context).padding.bottom + 16),
               child: Column(children: [
-                SizedBox(height: 24),
               ]),
             ))
           ]))

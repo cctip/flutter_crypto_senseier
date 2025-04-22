@@ -10,7 +10,16 @@ Widget UserBox({ required final String theme }) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset('assets/images/avator/avator_1.png', width: 40),
+        Container(
+          width: 42,
+          height: 42,
+          padding: EdgeInsets.all(1),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(42)
+          ),
+          child: Image.asset('assets/images/avator/avator_4.png', width: 40),
+        ),
         SizedBox(width: 16),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
