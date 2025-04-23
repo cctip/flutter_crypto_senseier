@@ -26,7 +26,7 @@ class ChapterPageState extends State<ChapterPage> {
       child: Column(
         children: [
           AppBar(
-            backgroundColor: Color(0xFFF1F5F9),
+            backgroundColor: Colors.transparent,
             iconTheme: IconThemeData(color: Color(0xFF15171C)),
             centerTitle: true,
             title: Text('Chapter', style: TextStyle(

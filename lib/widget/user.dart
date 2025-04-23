@@ -1,6 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_crypto_senseier/controller/user.dart';
+import 'package:get/get.dart';
 
 Widget UserBox({ required final String theme }) {
   bool light = theme == 'light';
@@ -41,7 +43,7 @@ Widget UserBox({ required final String theme }) {
                 color: light ? Color(0xFFF1F5F9) : Colors.white,
                 borderRadius: BorderRadius.circular(16)
               ),
-              child: Text('111111', style: TextStyle(color: Color(0xFF15171C), fontSize: 16, fontWeight: FontWeight.w700))
+              child: Obx(() => Text('${UserController.xpAll.value}', style: TextStyle(color: Color(0xFF15171C), fontSize: 16, fontWeight: FontWeight.w700)))
             ),
             Positioned(
               left: -1,

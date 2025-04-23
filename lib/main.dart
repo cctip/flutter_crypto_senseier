@@ -5,6 +5,7 @@ import 'common/share_pref.dart';
 import 'pages/index.dart';
 import 'pages/chapter.dart';
 import 'pages/lesson.dart';
+import 'pages/common_sense.dart';
 
 void main() => SharePref.init().then((e) => runApp(MainApp()));
 
@@ -22,6 +23,7 @@ class MainApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/chapter', page: () => ChapterPage()),
         GetPage(name: '/lesson', page: () => LessonPage()),
+        GetPage(name: '/common_sense', page: () => CommonSense()),
       ],
     );
   }

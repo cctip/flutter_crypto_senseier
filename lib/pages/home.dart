@@ -1,7 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_crypto_senseier/common/eventbus.dart';
+import 'package:flutter_crypto_senseier/controller/sense.dart';
 import 'package:flutter_crypto_senseier/widget/user.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +17,7 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    SenseController.init();
   }
 
   @override
@@ -30,7 +34,10 @@ class HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset('assets/images/bg/challenge.png'),
+                    GestureDetector(
+                      onTap: () => bus.emit('tabChange', 2),
+                      child: Image.asset('assets/images/bg/challenge.png'),
+                    ),
                     SizedBox(height: 24),
                     DailyTask(),
                     SizedBox(height: 24),
@@ -144,16 +151,13 @@ class HomePageState extends State<HomePage> {
           Container(
             height: 146,
             decoration: BoxDecoration(
-              // color: Color(0xFFE2E8F0),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF18B8EE),
-                  Color(0xFF0FFFE3),
-                ],
-                stops: [0, 1], // 调整渐变范围
-              ),
+              color: Color(0xFFE2E8F0),
+              // gradient: LinearGradient(
+              //   begin: Alignment.topCenter,
+              //   end: Alignment.bottomCenter,
+              //   colors: [Color(0xFF18B8EE), Color(0xFF0FFFE3)],
+              //   stops: [0, 1], // 调整渐变范围
+              // ),
               borderRadius: BorderRadius.circular(16)
             ),
           ),
@@ -177,12 +181,12 @@ class HomePageState extends State<HomePage> {
                   backgroundColor: Color(0xFF15171C),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
-                onPressed: () {},
+                onPressed: null,
                 child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
               ))
             ]),
           ),
-          Positioned(top: -16, child: Image.asset('assets/icons/tab_trader.png', width: 56))
+          Positioned(top: -16, child: Image.asset('assets/icons/tab_trader_disabled.png', width: 56))
         ],
       ),
     );
@@ -196,16 +200,13 @@ class HomePageState extends State<HomePage> {
           Container(
             height: 146,
             decoration: BoxDecoration(
-              // color: Color(0xFFE2E8F0),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFFE215AB),
-                  Color(0xFFE527FE),
-                ],
-                stops: [0, 1], // 调整渐变范围
-              ),
+              color: Color(0xFFE2E8F0),
+              // gradient: LinearGradient(
+              //   begin: Alignment.topCenter,
+              //   end: Alignment.bottomCenter,
+              //   colors: [Color(0xFFE215AB), Color(0xFFE527FE)],
+              //   stops: [0, 1], // 调整渐变范围
+              // ),
               borderRadius: BorderRadius.circular(16)
             ),
           ),
@@ -229,12 +230,12 @@ class HomePageState extends State<HomePage> {
                   backgroundColor: Color(0xFF15171C),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
-                onPressed: () {},
+                onPressed: null,
                 child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
               ))
             ]),
           ),
-          Positioned(top: -16, child: Image.asset('assets/icons/tab_oracle.png', width: 56))
+          Positioned(top: -16, child: Image.asset('assets/icons/tab_oracle_disabled.png', width: 56))
         ],
       ),
     );
@@ -309,25 +310,17 @@ class HomePageState extends State<HomePage> {
       children: [
         Text('Common Sense', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
         SizedBox(height: 8),
-        Row(children: [
-          Image.asset('assets/images/bg/sense_1.png', width: MediaQuery.of(context).size.width / 2 - 20),
-          SizedBox(width: 8),
-          Image.asset('assets/images/bg/sense_2.png', width: MediaQuery.of(context).size.width / 2 - 20),
-        ]),
-        SizedBox(height: 8),
-        Row(children: [
-          Image.asset('assets/images/bg/sense_3.png', width: MediaQuery.of(context).size.width / 2 - 20),
-          SizedBox(width: 8),
-          Image.asset('assets/images/bg/sense_4.png', width: MediaQuery.of(context).size.width / 2 - 20),
-        ]),
-        SizedBox(height: 8),
-        Row(children: [
-          Image.asset('assets/images/bg/sense_5.png', width: MediaQuery.of(context).size.width / 2 - 20),
-          SizedBox(width: 8),
-          Image.asset('assets/images/bg/sense_6.png', width: MediaQuery.of(context).size.width / 2 - 20),
-        ]),
-        SizedBox(height: 8),
-        Image.asset('assets/images/bg/sense_7.png', width: MediaQuery.of(context).size.width / 2 - 20),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: List.generate(7, (index) => GestureDetector(
+            onTap: () {
+              SenseController.readSense(index);
+              Get.toNamed('/common_sense');
+            },
+            child: Image.asset('assets/images/bg/sense_${index+1}.png', width: MediaQuery.of(context).size.width / 2 - 20),
+          ))
+        )
       ],
     );
   }

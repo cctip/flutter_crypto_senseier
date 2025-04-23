@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_crypto_senseier/common/eventbus.dart';
 import './home.dart';
 import './course.dart';
 import './battle.dart';
@@ -16,6 +17,12 @@ class IndexPage extends StatefulWidget {
 
 class IndexPageState extends State<IndexPage> {
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    bus.on('tabChange', (index) => onTabChanged(index));
+  }
 
   /// Tab 改变
   void onTabChanged(int index) {
