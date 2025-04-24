@@ -19,11 +19,41 @@ class CoursePageState extends State<CoursePage> {
   int get _readLesson => CourseController.readLesson.value;
   List get _topics => _lessons[_readLesson]['topic'];
   List get _favorites => CourseController.favorites.value == '' ? [] : CourseController.favorites.value.split(',');
+  List get _readedList => CourseController.readedList.value == '' ? [] : CourseController.readedList.value.split(',');
 
   @override
   void initState() {
     super.initState();
     CourseController.init();
+  }
+
+  int lessonComplete(index) {
+    int total = 0;
+    int readed = 0;
+    List topics = _lessons[index]['topic'];
+    for (int topicIndex = 0; topicIndex < topics.length; topicIndex++) {
+      Map topicItem = topics[topicIndex];
+      int sectionLength = topicItem['section'].length;
+      total += sectionLength;
+      for (int sectionIndex = 0; sectionIndex < sectionLength; sectionIndex++) {
+        if (_readedList.contains('${_curChapter}_${index}_${topicIndex}_$sectionIndex')) {
+          readed += 1;
+        }
+      }
+    }
+    return (readed / total * 100).toInt();
+  }
+  int topicComplete(item) {
+    List list = item.split('_');
+    List topics = _lessons[int.parse(list[1])]['topic'];
+    List sections = topics[int.parse(list[2])]['section'];
+    int readed = 0;
+    for (int sectionIndex = 0; sectionIndex < sections.length; sectionIndex++) {
+      if (_readedList.contains('${_curChapter}_${list[1]}_${list[2]}_$sectionIndex')) {
+        readed += 1;
+      }
+    }
+    return (readed / sections.length * 100).toInt();
   }
 
   @override
@@ -130,7 +160,6 @@ class CoursePageState extends State<CoursePage> {
   }
 
   Widget Favorites() {
-    List images = ['green', 'cyan', 'blue', 'purple'];
     return Container(
       margin: EdgeInsets.only(top: 12, bottom: 12),
       child: Column(
@@ -151,55 +180,7 @@ class CoursePageState extends State<CoursePage> {
                   constraints: BoxConstraints(minWidth: constraints.maxWidth),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: List.generate(_favorites.length, (index) => Container(
-                      width: 177,
-                      height: 184,
-                      padding: EdgeInsets.all(16),
-                      margin: EdgeInsets.only(right: 8),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage('assets/images/bg/square_${images[int.parse(_favorites[index].split('_')[2])%4]}.png'))
-                      ),
-                      child: Column(children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                CourseController.cancleFavorite(_favorites[index]);
-                              },
-                              child: Container(
-                                width: 32,
-                                height: 32,
-                                padding: EdgeInsets.fromLTRB(0, 4, 4, 4),
-                                child: Image.asset('assets/icons/star_ac.png', width: 24),
-                              ),
-                            ),
-                            Image.asset('assets/icons/arrow_north_east.png', width: 32)
-                          ]
-                        ),
-                        SizedBox(height: 12),
-                        Text(_topics[int.parse(_favorites[index].split('_')[2])]['title'], style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700, height: 1.2)),
-                        Spacer(),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 8,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8)
-                          ),
-                          child: Row(children: [
-                            Container(
-                              width: 8,
-                              height: 8,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF282B32),
-                                borderRadius: BorderRadius.circular(8)
-                              ),
-                            )
-                          ]),
-                        )
-                      ]),
-                    )),
+                    children: List.generate(_favorites.length, (index) => FavoritesItem(index)),
                   ),
                 )
               );
@@ -207,6 +188,67 @@ class CoursePageState extends State<CoursePage> {
           )
         ],
       ),
+    );
+  }
+  Widget FavoritesItem(index) {
+    List themes = ['green', 'cyan', 'blue', 'purple'];
+    return Container(
+      width: 177,
+      height: 184,
+      padding: EdgeInsets.all(16),
+      margin: EdgeInsets.only(right: 8),
+      decoration: BoxDecoration(
+        image: DecorationImage(image: AssetImage('assets/images/bg/square_${themes[int.parse(_favorites[index].split('_')[2])%4]}.png'))
+      ),
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                CourseController.cancleFavorite(_favorites[index]);
+              },
+              child: Container(
+                width: 32,
+                height: 32,
+                padding: EdgeInsets.fromLTRB(0, 4, 4, 4),
+                child: Image.asset('assets/icons/star_ac.png', width: 24),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                List list = _favorites[index].split('_');
+                int lessonIndex = int.parse(list[1]);
+                int topicIndex = int.parse(list[2]);
+                CourseController.onReadLesson(lessonIndex);
+                CourseController.onReadTopic(topicIndex);
+                Get.toNamed('/lesson_detail');
+              },
+              child: Image.asset('assets/icons/arrow_north_east.png', width: 32),
+            )
+          ]
+        ),
+        SizedBox(height: 12),
+        Text(_topics[int.parse(_favorites[index].split('_')[2])]['title'], style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700, height: 1.2)),
+        Spacer(),
+        Container(
+          height: 8,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8)
+          ),
+          child: Row(children: [
+            Obx(() => Container(
+              width: 145 * topicComplete(_favorites[index]) / 100,
+              height: 8,
+              decoration: BoxDecoration(
+                color: Color(0xFF282B32),
+                borderRadius: BorderRadius.circular(8)
+              ),
+            ))
+          ]),
+        )
+      ]),
     );
   }
 
@@ -262,10 +304,11 @@ class CoursePageState extends State<CoursePage> {
     return Obx(() => Wrap(
       spacing: 16,
       runSpacing: 16,
-      children: List.generate(_lessons.length, (index) => Chapter_item(index))
+      children: List.generate(_lessons.length, (index) => ChapterItem(index))
     ));
   }
-  Widget Chapter_item(index) {
+  Widget ChapterItem(index) {
+    int complete = lessonComplete(index);
     return GestureDetector(
       onTap: () {
         CourseController.onReadLesson(index);
@@ -289,12 +332,11 @@ class CoursePageState extends State<CoursePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Obx(() => Text('${_lessons[index]['topic'].length} topic', style: TextStyle(color: Color(0xFF494D55), fontSize: 12, fontWeight: FontWeight.w500))),
-                Text('0% complete', style: TextStyle(color: Color(0xFF494D55), fontSize: 11, fontWeight: FontWeight.w400)),
+                Text('$complete% complete', style: TextStyle(color: Color(0xFF494D55), fontSize: 11, fontWeight: FontWeight.w400)),
               ]
             ),
             SizedBox(height: 2),
             Container(
-              width: MediaQuery.of(context).size.width,
               height: 8,
               decoration: BoxDecoration(
                 color: Color(0xFFE2E8F0),
@@ -302,7 +344,7 @@ class CoursePageState extends State<CoursePage> {
               ),
               child: Row(children: [
                 Container(
-                  width: 0,
+                  width: (MediaQuery.of(context).size.width - 112) / 2 * complete / 100,
                   height: 8,
                   decoration: BoxDecoration(
                     color: Color(0xFF282B32),

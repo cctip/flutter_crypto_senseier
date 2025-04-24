@@ -17,10 +17,39 @@ class LessonPageState extends State<LessonPage> {
   int get _readLesson => CourseController.readLesson.value;
   List get _topics => _lessons[_readLesson]['topic'];
   List get _favorites => CourseController.favorites.value.split(',');
+  List get _readedList => CourseController.readedList.value == '' ? [] : CourseController.readedList.value.split(',');
   
   @override
   void initState() {
     super.initState();
+  }
+
+  int lessonComplete() {
+    int total = 0;
+    int readed = 0;
+    List topics = _lessons[_readLesson]['topic'];
+    for (int topicIndex = 0; topicIndex < topics.length; topicIndex++) {
+      Map topicItem = topics[topicIndex];
+      int sectionLength = topicItem['section'].length;
+      total += sectionLength;
+      for (int sectionIndex = 0; sectionIndex < sectionLength; sectionIndex++) {
+        if (_readedList.contains('${_curChapter}_${_readLesson}_${topicIndex}_$sectionIndex')) {
+          readed += 1;
+        }
+      }
+    }
+    return (readed / total * 100).toInt();
+  }
+  int getComplete(index) {
+    int readed = 0;
+    Map topicItem = _lessons[_readLesson]['topic'][index];
+    int sectionLength = topicItem['section'].length;
+    for (int sectionIndex = 0; sectionIndex < sectionLength; sectionIndex++) {
+      if (_readedList.contains('${_curChapter}_${_readLesson}_${index}_$sectionIndex')) {
+        readed += 1;
+      }
+    }
+    return (readed / sectionLength * 100).toInt();
   }
 
   @override
@@ -59,17 +88,17 @@ class LessonPageState extends State<LessonPage> {
                           borderRadius: BorderRadius.circular(8)
                         ),
                         child: Row(children: [
-                          Container(
-                            width: 0,
+                          Obx(() => Container(
+                            width: (MediaQuery.of(context).size.width - 124) * lessonComplete() / 100,
                             height: 8,
                             decoration: BoxDecoration(
                               color: Color(0xFF282B32),
                               borderRadius: BorderRadius.circular(8)
                             ),
-                          )
+                          ))
                         ]),
                       ),
-                      Text('0% complete', style: TextStyle(color: Color(0xFF494D55), fontSize: 11))
+                      Obx(() => Text('${lessonComplete()}% complete', style: TextStyle(color: Color(0xFF494D55), fontSize: 11)))
                     ],
                   ),
                   SizedBox(height: 24),
@@ -126,7 +155,7 @@ class LessonPageState extends State<LessonPage> {
               ]
             ),
             SizedBox(height: 24),
-            Text(_topics[index]['title'], style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700, height: 1.2)),
+            Obx(() => Text(_topics[index]['title'], style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700, height: 1.2))),
             Spacer(),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -136,14 +165,14 @@ class LessonPageState extends State<LessonPage> {
                 borderRadius: BorderRadius.circular(8)
               ),
               child: Row(children: [
-                Container(
-                  width: 0,
+                Obx(() => Container(
+                  width: (MediaQuery.of(context).size.width - 64) * getComplete(index) / 100,
                   height: 8,
                   decoration: BoxDecoration(
                     color: Color(0xFF282B32),
                     borderRadius: BorderRadius.circular(8)
                   ),
-                )
+                ))
               ]),
             )
           ]

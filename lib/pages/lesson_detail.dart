@@ -21,13 +21,16 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
 
   int get _curChapter => CourseController.curChapter.value;
   Map get _curLessonObj => CourseInfo['chapter_${_curChapter+1}'][CourseController.readLesson.value];
-  List get _sections => _curLessonObj['topic'][CourseController.readTopic.value]['section'];
-  int _curSection = CourseController.readSection.value;
+  Map get _curTopicObj => _curLessonObj['topic'][CourseController.readTopic.value];
+  List get _sections => _curTopicObj['section'];
+  List get _readedList => CourseController.readedList.value == '' ? [] : CourseController.readedList.value.split(',');
   int get _maxReadSection => CourseController.readSection.value;
+  int _curSection = 0;
   
   @override
   void initState() {
     super.initState();
+    initProgress();
     _controller = AnimationController(duration: Duration(seconds: 10), vsync: this);
     _startTimer();
   }
@@ -37,8 +40,25 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
     super.dispose();
   }
 
+  void initProgress() {
+    setState(() => _curSection = 0);
+    for(String item in _readedList) {
+      if (item.contains('${_curChapter}_${CourseController.readLesson.value}_${CourseController.readTopic.value}_')) {
+        if (_curSection < _sections.length - 1) {
+          setState(() => _curSection++);
+        }
+      }
+    }
+    CourseController.onReadSection(_curSection);
+  }
   void _startTimer() {
     _controller.forward();
+    // 动画结束标记已读
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        CourseController.onReadedSection(_curSection);
+      }
+    });
     _animation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
     if (_timer != null && _timer!.isActive) return;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -107,7 +127,7 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
   Widget PageHeader() {
     return Column(
       children: [
-        Obx(() => Text(_curLessonObj['title'], style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700), textAlign: TextAlign.center)),
+        Obx(() => Text(_curTopicObj['title'], style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700), textAlign: TextAlign.center)),
         SizedBox(height: 16),
         LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
           return ConstrainedBox(
@@ -125,14 +145,14 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
                       borderRadius: BorderRadius.circular(6)
                     ),
                     child: Row(children: [
-                      Obx(() => Container(
+                      Container(
                         width: (constraints.maxWidth - 18) / _sections.length * _maxReadSection,
                         height: 6,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(6)
                         ),
-                      ))
+                      )
                     ]),
                   ),
                   Row(
@@ -143,7 +163,7 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
                         if (_maxReadSection < index) return;
                         setState(() => _curSection = index);
                       },
-                      child: Obx(() => Container(
+                      child: Container(
                         width: 24,
                         height: 24,
                         color: Colors.transparent,
@@ -169,7 +189,7 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
                             ]
                           ),
                         )]),
-                      )),
+                      ),
                     ))
                   )
                 ],
