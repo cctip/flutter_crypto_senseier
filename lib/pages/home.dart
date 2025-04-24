@@ -132,7 +132,7 @@ class HomePageState extends State<HomePage> {
                   backgroundColor: Color(0xFF15171C),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
-                onPressed: () {},
+                onPressed: () => bus.emit('tabChange', 1),
                 child: Text('Learn', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
               ))
             ]),

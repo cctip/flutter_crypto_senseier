@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '/controller/course.dart';
 
 class ChapterPage extends StatefulWidget {
@@ -69,11 +70,11 @@ class ChapterPageState extends State<ChapterPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Chapter 1:', style: TextStyle(color: Colors.white54, fontSize: 14, fontWeight: FontWeight.w500)),
+                  Obx(() => Text('Chapter ${_curChapter+1}:', style: TextStyle(color: Colors.white54, fontSize: 14, fontWeight: FontWeight.w500))),
                   SizedBox(height: 4),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 140,
-                    child: Text('What is cryptocurrency?', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500)),
+                    child: Obx(() => Text(CourseController.chapters[_curChapter], style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500))),
                   )
                 ]
               ),
@@ -86,44 +87,50 @@ class ChapterPageState extends State<ChapterPage> {
   }
 
   Widget OtherChapters() {
-    return Column(
+    return Obx(() => Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Other', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
         SizedBox(height: 8),
         ...List.generate(_chapters.length, (index) => _curChapter == index ? Container() : ChapterItem(index))
       ],
-    );
+    ));
   }
 
   Widget ChapterItem(index) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            decoration: BoxDecoration(
-              color: _deepChapter > index ? Colors.white : Color(0xFFE2E8F0),
-              border: Border.all(color: _deepChapter > index ? Color(0xFF1D4ED8) : Colors.transparent, width: 1),
-              borderRadius: BorderRadius.circular(16)
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Chapter ${index+1}:', style: TextStyle(color: Color(_deepChapter > index ? 0xFFA2A6AF : 0xFFA2A6AF), fontSize: 14, fontWeight: FontWeight.w500)),
-                SizedBox(height: 4),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 140,
-                  child: Text(_chapters[index], style: TextStyle(color: Color(_deepChapter > index ? 0xFF282B32 : 0xFFA2A6AF), fontSize: 18, fontWeight: FontWeight.w500)),
-                )
-              ]
-            ),
-          ),
-          Positioned(right: 8, child: Image.asset('assets/icons/chapter_${index+1}.png', width: 72))
-        ],
+    return GestureDetector(
+      onTap: () {
+        if (_deepChapter < index + 1) return;
+        CourseController.onChangeChapter(index);
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 16),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Obx(() => Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              decoration: BoxDecoration(
+                color: _deepChapter > index ? Colors.white : Color(0xFFE2E8F0),
+                border: Border.all(color: _deepChapter > index ? Color(0xFF1D4ED8) : Colors.transparent, width: 1),
+                borderRadius: BorderRadius.circular(16)
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Chapter ${index+1}:', style: TextStyle(color: Color(_deepChapter > index ? 0xFFA2A6AF : 0xFFA2A6AF), fontSize: 14, fontWeight: FontWeight.w500)),
+                  SizedBox(height: 4),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 140,
+                    child: Text(_chapters[index], style: TextStyle(color: Color(_deepChapter > index ? 0xFF282B32 : 0xFFA2A6AF), fontSize: 18, fontWeight: FontWeight.w500)),
+                  )
+                ]
+              ),
+            )),
+            Positioned(right: 8, child: Image.asset('assets/icons/chapter_${index+1}.png', width: 72))
+          ],
+        ),
       ),
     );
   }
