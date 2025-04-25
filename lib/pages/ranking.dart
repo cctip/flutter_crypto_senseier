@@ -1,4 +1,8 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
+import 'package:flutter_crypto_senseier/common/eventbus.dart';
+import 'package:flutter_crypto_senseier/controller/ranking.dart';
 import 'package:flutter_crypto_senseier/widget/user.dart';
 
 class RankingPage extends StatefulWidget {
@@ -9,9 +13,16 @@ class RankingPage extends StatefulWidget {
 }
 
 class RankingPageState extends State<RankingPage> {
+  Map get _rankingMap => RankingController.rankingMap.value;
+  late final List<String> _avatorList = [];
+
   @override
   void initState() {
     super.initState();
+    RankingController.init();
+    for(String avator in RankingController.rankingMap.keys) {
+      _avatorList.add(avator);
+    }
   }
   @override
   void dispose() {
@@ -30,7 +41,7 @@ class RankingPageState extends State<RankingPage> {
         Expanded(child: CustomScrollView(slivers: [
           SliverToBoxAdapter(
             child: Container(
-              height: MediaQuery.of(context).size.height -  MediaQuery.of(context).padding.top - 56,
+              height: MediaQuery.of(context).size.height -  MediaQuery.of(context).padding.top - 56 + 500,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -121,32 +132,12 @@ class RankingPageState extends State<RankingPage> {
                   Positioned(top: 232, child: Image.asset('assets/images/bg/rank_bg.png', width: 302, fit: BoxFit.cover)),
                   Positioned(top: 325, child: Container(
                     width: 370,
-                    height: 232,
+                    padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16)
                     ),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 50),
-                        Text('The leaderboard is empty... for now.', style: TextStyle(color: Color(0xFF282B32), fontSize: 16, fontWeight: FontWeight.w500)),
-                        Text('Make your move!', style: TextStyle(color: Color(0xFF282B32), fontSize: 16, fontWeight: FontWeight.w500)),
-                        SizedBox(height: 30),
-                        SizedBox(
-                          width: 338,
-                          height: 54,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              backgroundColor: Color(0xFF15171C),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                            ),
-                            onPressed: () {},
-                            child: Text('Learning', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700))
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _rankingMap.isEmpty ? EmptyBox() : RankingBox(),
                   )),
                   Column(
                     children: [
@@ -160,6 +151,50 @@ class RankingPageState extends State<RankingPage> {
           )
         ]))
       ],
+    );
+  }
+
+  Widget EmptyBox() {
+    return Column(
+      children: [
+        SizedBox(height: 32),
+        Text('The leaderboard is empty... for now.', style: TextStyle(color: Color(0xFF282B32), fontSize: 16, fontWeight: FontWeight.w500)),
+        Text('Make your move!', style: TextStyle(color: Color(0xFF282B32), fontSize: 16, fontWeight: FontWeight.w500)),
+        SizedBox(height: 30),
+        SizedBox(
+          width: 338,
+          height: 54,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Color(0xFF15171C),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+            ),
+            onPressed: () {
+              bus.emit('tabChange', 1);
+            },
+            child: Text('Learning', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700))
+          ),
+        ),
+      ],
+    );
+  }
+  Widget RankingBox() {
+    return Container(
+      child: Column(children: List.generate(RankingController.rankingMap.length, (index) => SizedBox(
+        height: 56,
+        child: Row(children: [
+          Text('4.', style: TextStyle(color: Color(0xFF1D4ED8), fontSize: 24, fontStyle: FontStyle.italic, fontWeight: FontWeight.w900)),
+          SizedBox(width: 24),
+          Image.asset('assets/images/avator/${RankingController.rankingMap[_avatorList[index]]['avator']}.png', width: 40),
+          SizedBox(width: 8),
+          Text(_avatorList[0], style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          Spacer(),
+          Image.asset('assets/icons/xp.png', width: 24),
+          SizedBox(width: 4),
+          Text('${RankingController.rankingMap[_avatorList[index]]['xp']}', style: TextStyle(fontWeight: FontWeight.w700))
+        ],),
+      ))),
     );
   }
 }

@@ -35,7 +35,7 @@ Widget UserBox({ required final String theme }) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Noob101', style: TextStyle(color: light ? Color(0xFF15171C) : Colors.white, fontSize: 16, fontWeight: FontWeight.w700)),
-                  Text('Lvl.1', style: TextStyle(color: light ? Color.fromRGBO(21, 23, 28, 0.6) : Color.fromRGBO(255, 255, 255, 0.6), fontSize: 14, fontWeight: FontWeight.w500)),
+                  Obx(() => Text('Lvl.${UserController.level}', style: TextStyle(color: light ? Color.fromRGBO(21, 23, 28, 0.6) : Color.fromRGBO(255, 255, 255, 0.6), fontSize: 14, fontWeight: FontWeight.w500))),
                 ]
               ),
             ],

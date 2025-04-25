@@ -206,7 +206,7 @@ class BattleDetailState extends State<BattleDetail> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Column(children: [
-                      Obx(() => Image.asset('assets/images/avator/${UserController.avator_opponent}.png', width: 64)),
+                      Obx(() => Image.asset('assets/images/avator/${UserController.avatorOpponent}.png', width: 64)),
                       Text('Opponent', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))
                     ]),
                     Image.asset('assets/icons/VS.png', width: 46, height: 38),
@@ -307,7 +307,7 @@ class BattleDetailState extends State<BattleDetail> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(32)
               ),
-              child: Image.asset('assets/images/avator/${UserController.avator_opponent}.png'),
+              child: Image.asset('assets/images/avator/${UserController.avatorOpponent}.png'),
             ))
           ) : Container(),
           _chooseAnswer == index ? Positioned(

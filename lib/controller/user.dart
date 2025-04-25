@@ -6,7 +6,7 @@ var formater = DateFormat('yyyy-MM-dd');
 
 class UserController extends GetxController {
   static final avator = 'avator_4'.obs;
-  static final avator_opponent = 'avator_1'.obs;
+  static final avatorOpponent = 'avator_1'.obs;
   static final level = RxInt(1);
   static final xp = RxInt(0);
   static final xpAll = RxInt(0);
@@ -29,13 +29,13 @@ class UserController extends GetxController {
   }
   // 设置对手头像
   static setOpponent(val) {
-    avator_opponent.value = val;
+    avatorOpponent.value = val;
   }
 
   static increaseXP(int value) {
     xpAll.value += value;
     if (xp.value + value >= level.value * 1000) {
-      xp.value -= level.value * 1000;
+      xp.value = xp.value + value - level.value * 1000;
       level.value++;
       SharePref.setInt('level', level.value);
     } else {

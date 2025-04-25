@@ -105,7 +105,7 @@ class HomePageState extends State<ProfilePage> {
                         ),
                         child: Row(children: [
                           Container(
-                            width: (MediaQuery.of(context).size.width - 112) / 2 * 20 / 100,
+                            width: 250 * UserController.xp.value / (UserController.level.value * 1000),
                             height: 8,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -118,7 +118,7 @@ class HomePageState extends State<ProfilePage> {
                         width: 250,
                         child: Row(children: [
                           Obx(() => Text('${UserController.xp.value}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))),
-                          Text('/1000', style: TextStyle(color: Color(0xFF989BEE), fontWeight: FontWeight.w500)),
+                          Text('/${UserController.level.value * 1000}', style: TextStyle(color: Color(0xFF989BEE), fontWeight: FontWeight.w500)),
                           SizedBox(width: 4),
                           Image.asset('assets/icons/xp.png', width: 16),
                           Spacer(),
