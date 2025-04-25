@@ -82,7 +82,10 @@ class CourseController extends GetxController {
   static onReadedSection(index) {
     List<String> list = readedList.value.split(',');
     String itemStr = '${curChapter}_${readLesson}_${readTopic}_$index';
-    if (!list.contains(itemStr)) {
+    if (readedList.value == '') {
+      readedList.value += itemStr;
+      SharePref.setString('readedList', readedList.value);
+    } else if (!list.contains(itemStr)) {
       readedList.value += ',$itemStr';
       SharePref.setString('readedList', readedList.value);
     }

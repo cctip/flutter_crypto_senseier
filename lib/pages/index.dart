@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_crypto_senseier/common/eventbus.dart';
+import 'package:flutter_crypto_senseier/controller/user.dart';
 import './home.dart';
 import './course.dart';
 import './battle.dart';
@@ -21,6 +22,7 @@ class IndexPageState extends State<IndexPage> {
   @override
   void initState() {
     super.initState();
+    UserController.init();
     bus.on('tabChange', (index) => onTabChanged(index));
   }
 

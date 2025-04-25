@@ -10,28 +10,37 @@ Widget UserBox({ required final String theme }) {
     height: 56,
     padding: EdgeInsets.symmetric(horizontal: 16),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          width: 42,
-          height: 42,
-          padding: EdgeInsets.all(1),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(42)
+        GestureDetector(
+          onTap: () {
+            Get.toNamed('/profile');
+          },
+          child: Row(
+            children: [
+              Container(
+                width: 42,
+                height: 42,
+                padding: EdgeInsets.all(1),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(42)
+                ),
+                child: Image.asset('assets/images/avator/avator_4.png', width: 40),
+              ),
+              SizedBox(width: 16),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Noob101', style: TextStyle(color: light ? Color(0xFF15171C) : Colors.white, fontSize: 16, fontWeight: FontWeight.w700)),
+                  Text('Lvl.1', style: TextStyle(color: light ? Color.fromRGBO(21, 23, 28, 0.6) : Color.fromRGBO(255, 255, 255, 0.6), fontSize: 14, fontWeight: FontWeight.w500)),
+                ]
+              ),
+            ],
           ),
-          child: Image.asset('assets/images/avator/avator_4.png', width: 40),
         ),
-        SizedBox(width: 16),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Noob101', style: TextStyle(color: light ? Color(0xFF15171C) : Colors.white, fontSize: 16, fontWeight: FontWeight.w700)),
-            Text('Lvl.1', style: TextStyle(color: light ? Color.fromRGBO(21, 23, 28, 0.6) : Color.fromRGBO(255, 255, 255, 0.6), fontSize: 14, fontWeight: FontWeight.w500)),
-          ]
-        ),
-        Spacer(),
         Stack(
           clipBehavior: Clip.none,
           children: [

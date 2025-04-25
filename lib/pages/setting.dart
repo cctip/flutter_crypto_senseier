@@ -28,7 +28,6 @@ class SettingPage extends StatelessWidget {
               linkItem('Terms of service', (){
                 launchUrl(Uri.parse('https://www.freeprivacypolicy.com/live/5b24cde1-cb6b-44e8-a530-4dffc2286408'));
               }),
-              // linkItem('Clear Cache', (){ Global.clear(); }),
             ],
           ),
           Spacer(),
