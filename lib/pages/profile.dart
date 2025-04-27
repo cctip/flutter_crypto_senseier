@@ -217,7 +217,7 @@ class HomePageState extends State<ProfilePage> {
           child: Column(children: [
             linkItem('Rate us', _toRate),
             linkItem('Privacy Policy', (){
-              launchUrl(Uri.parse(''));
+              launchUrl(Uri.parse('https://www.freeprivacypolicy.com/live/41e43b5d-e73e-451f-ac00-5838508ff035'));
             }),
             linkItem('Terms of Services', (){
               launchUrl(Uri.parse(''));
