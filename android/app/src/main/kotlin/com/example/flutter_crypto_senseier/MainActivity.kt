@@ -1,4 +1,4 @@
-package com.CryptoSenseier.CryptoSenseier
+package com.hxtools.cryptosenseier
 
 import io.flutter.embedding.android.FlutterActivity
 
