@@ -168,7 +168,7 @@ class CoursePageState extends State<CoursePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Favorites', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
-              Icon(Icons.arrow_forward_ios_rounded, size: 18)
+              // Icon(Icons.arrow_forward_ios_rounded, size: 18)
             ],
           ),
           SizedBox(height: 8),
@@ -261,7 +261,10 @@ class CoursePageState extends State<CoursePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Current chapter', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
-              Text('More', style: TextStyle(color: Color(0xFF1D4ED8), fontWeight: FontWeight.w500))
+              GestureDetector(
+                onTap: () => Get.toNamed('/chapter'),
+                child: Text('More', style: TextStyle(color: Color(0xFF1D4ED8), fontWeight: FontWeight.w500)),
+              )
             ],
           ),
           SizedBox(height: 8),
@@ -269,9 +272,7 @@ class CoursePageState extends State<CoursePage> {
             alignment: Alignment.center,
             children: [
               GestureDetector(
-                onTap: () {
-                  Get.toNamed('/chapter');
-                },
+                onTap: () => Get.toNamed('/chapter'),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),

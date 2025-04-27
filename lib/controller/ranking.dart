@@ -1,8 +1,10 @@
 import 'dart:math';
 
+import 'package:flutter_crypto_senseier/common/eventbus.dart';
 import 'package:intl/intl.dart';
 import '/common/share_pref.dart';
 import 'package:get/get.dart';
+import '/controller/user.dart';
 
 var formater = DateFormat('yyyy-MM-dd');
 
@@ -12,6 +14,12 @@ class RankingController extends GetxController {
 
   // 初始化
   static init() {
+    if (UserController.xp.value != 0) {
+      rankingMap['Noob101'] = {
+        'avator': 'avator_4',
+        'xp': UserController.xp.value
+      };
+    }
     initCount.value = SharePref.getInt('initCount') ?? 0;
     if (initCount.value != 0) {
       for (int i = 0; i < 10; i++) {
@@ -38,5 +46,6 @@ class RankingController extends GetxController {
     }
     initCount.value++;
     SharePref.setInt('initCount', initCount.value);
+    bus.emit('calcRank');
   }
 }

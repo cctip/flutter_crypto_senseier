@@ -1,3 +1,4 @@
+import 'package:flutter_crypto_senseier/controller/ranking.dart';
 import 'package:intl/intl.dart';
 import '/common/share_pref.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,10 @@ class UserController extends GetxController {
   static final xpAll = RxInt(0);
   static final battleCount = RxInt(0); // battle次数
   static final battleCountWin = RxInt(0); // battle胜利次数
+  static final battleToday = RxBool(false); // 今天是否battle
+  static final readedToday = RxBool(false); // 今日是否阅读
+  static final rewordBattle = RxBool(false); // 每日battle奖励已领取
+  static final rewordReaded = RxBool(false); // 每日阅读奖励已领取
 
   // 初始化
   static init() {
@@ -21,6 +26,10 @@ class UserController extends GetxController {
     xpAll.value = SharePref.getInt('xpAll') ?? 0;
     battleCount.value = SharePref.getInt('battleCount') ?? 0;
     battleCountWin.value = SharePref.getInt('battleCountWin') ?? 0;
+    battleToday.value = (SharePref.getString('battleTime') ?? '') == formater.format(DateTime.now());
+    readedToday.value = (SharePref.getString('readTime') ?? '') == formater.format(DateTime.now());
+    rewordBattle.value = battleToday.value ? SharePref.getBool('rewordBattle') ?? false : false;
+    rewordReaded.value = readedToday.value ? SharePref.getBool('rewordReaded') ?? false : false;
   }
 
   // 设置头像
@@ -43,9 +52,13 @@ class UserController extends GetxController {
     }
     SharePref.setInt('xp', xp.value);
     SharePref.setInt('xpAll', xpAll.value);
+
+    RankingController.init();
   }
 
   static onBattle() {
+    String today = formater.format(DateTime.now()); // 今天
+    SharePref.setString('battleTime', today);
     battleCount.value++;
     SharePref.setInt('battleCount', battleCount.value);
   }
@@ -53,5 +66,16 @@ class UserController extends GetxController {
     increaseXP(100);
     battleCountWin.value++;
     SharePref.setInt('battleCountWin', battleCountWin.value);
+  }
+
+  static onClaimBattle() {
+    increaseXP(200);
+    rewordBattle.value = true;
+    SharePref.setBool('rewordBattle', true);
+  }
+  static onClaimReaded() {
+    increaseXP(200);
+    rewordReaded.value = true;
+    SharePref.setBool('rewordReaded', true);
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_crypto_senseier/common/utils.dart';
 import 'package:get/get.dart';
 import '/controller/course.dart';
 
@@ -100,8 +101,11 @@ class ChapterPageState extends State<ChapterPage> {
   Widget ChapterItem(index) {
     return GestureDetector(
       onTap: () {
-        if (_deepChapter < index + 1) return;
-        CourseController.onChangeChapter(index);
+        if (_deepChapter > index) {
+          CourseController.onChangeChapter(index);
+        } else {
+          Utils.toast(context, message: 'Not unlocked');
+        }
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 16),

@@ -34,7 +34,7 @@ class BattlePageState extends State<BattlePage> with SingleTickerProviderStateMi
     UserController.setOpponent(opponents[endIndex]);
     Future.delayed(const Duration(milliseconds: 20), () {
       _scrollController.animateTo(
-        _scrollController.offset + 96 * (endIndex + 37) - 62,
+        96 * (1 + 37) - ((MediaQuery.of(context).size.width - 88) / 2) + 100,
         duration: Duration(milliseconds: 3000),
         curve: Curves.easeInOut,
       );

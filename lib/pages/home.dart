@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crypto_senseier/common/eventbus.dart';
 import 'package:flutter_crypto_senseier/controller/sense.dart';
+import 'package:flutter_crypto_senseier/controller/user.dart';
 import 'package:flutter_crypto_senseier/widget/user.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +19,13 @@ class HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     SenseController.init();
+  }
+
+  void _claimTaskLesson() {
+    UserController.onClaimReaded();
+  }
+  void _claimTaskDuel() {
+    UserController.onClaimBattle();
   }
 
   @override
@@ -242,7 +250,7 @@ class HomePageState extends State<HomePage> {
   }
 
   Widget DailyTask() {
-    return Column(
+    return Obx(() => Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Daily Task', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
@@ -261,15 +269,15 @@ class HomePageState extends State<HomePage> {
             SizedBox(width: 2),
             Image.asset('assets/icons/xp.png', width: 16),
             Spacer(),
-            SizedBox(width: 54, height: 24, child: ElevatedButton(
+            SizedBox(height: 24, child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(0),
+                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                 foregroundColor: Colors.white,
                 backgroundColor: Color(0xFF15171C),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
-              onPressed: () {},
-              child: Text('Claim', style: TextStyle(fontWeight: FontWeight.w500))
+              onPressed: UserController.readedToday.value && !UserController.rewordReaded.value ? _claimTaskLesson : null,
+              child: Text(UserController.rewordReaded.value ? 'Claimed' : 'Claim', style: TextStyle(fontWeight: FontWeight.w500))
             )),
           ]),
         ),
@@ -288,20 +296,20 @@ class HomePageState extends State<HomePage> {
             SizedBox(width: 2),
             Image.asset('assets/icons/xp.png', width: 16),
             Spacer(),
-            SizedBox(width: 54, height: 24, child: ElevatedButton(
+            SizedBox(height: 24, child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(0),
+                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                 foregroundColor: Colors.white,
                 backgroundColor: Color(0xFF15171C),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
-              onPressed: () {},
-              child: Text('Claim', style: TextStyle(fontWeight: FontWeight.w500))
+              onPressed: UserController.battleToday.value && !UserController.rewordBattle.value ? _claimTaskDuel : null,
+              child: Text(UserController.rewordBattle.value ? 'Claimed' : 'Claim', style: TextStyle(fontWeight: FontWeight.w500))
             )),
           ]),
         )
       ]
-    );
+    ));
   }
 
   Widget CommonSense() {

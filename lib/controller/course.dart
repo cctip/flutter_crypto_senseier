@@ -1,5 +1,8 @@
 import '/common/share_pref.dart';
+import 'package:intl/intl.dart';
 import 'package:get/get.dart';
+
+var formater = DateFormat('yyyy-MM-dd');
 
 class CourseController extends GetxController {
   static final List<String> chapters = [
@@ -80,6 +83,8 @@ class CourseController extends GetxController {
   }
   // 文章阅读完成
   static onReadedSection(index) {
+    String today = formater.format(DateTime.now()); // 今天
+    SharePref.setString('readTime', today);
     List<String> list = readedList.value.split(',');
     String itemStr = '${curChapter}_${readLesson}_${readTopic}_$index';
     if (readedList.value == '') {

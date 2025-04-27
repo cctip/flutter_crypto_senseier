@@ -31,6 +31,8 @@ class BattleDetailState extends State<BattleDetail> {
   }
   @override
   void dispose() {
+    _timer?.cancel();
+    _timer = null;
     super.dispose();
   }
   
@@ -82,11 +84,11 @@ class BattleDetailState extends State<BattleDetail> {
             alignment: Alignment.center,
             children: [
               Positioned(
-                top: 86,
+                top: MediaQuery.of(context).padding.top + 32,
                 child: Image.asset('assets/images/bg/well_done.png', width: MediaQuery.of(context).size.width)
               ),
               Positioned(
-                top: 358,
+                top: MediaQuery.of(context).padding.top + 286,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width - 80,
                   height: 272,

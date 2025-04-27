@@ -1,11 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_crypto_senseier/common/utils.dart';
 import 'package:flutter_crypto_senseier/controller/course.dart';
 import 'package:flutter_crypto_senseier/controller/sense.dart';
 import 'package:flutter_crypto_senseier/controller/user.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,12 +17,40 @@ class ProfilePage extends StatefulWidget {
 }
 
 class HomePageState extends State<ProfilePage> {
+  final InAppReview _inAppReview = InAppReview.instance;
   List get _readedList => CourseController.readedList.value == '' ? [] : CourseController.readedList.value.split(',');
+  final List<String> _marketUrls = [
+    "vivomarket://details?id=com.hxtools.cruptosenserer&th_name=need_comment",
+    "oaps://mk/developer/comment?pkg=com.hxtools.cruptosenserer",
+    "appmarket://details?id=com.hxtools.cruptosenserer",
+    "mimarket://details?id=com.hxtools.cruptosenserer",
+  ];
 
   @override
   void initState() {
     super.initState();
     SenseController.init();
+  }
+
+  // 评分
+  Future<void> _toRate() async {
+    if (await _inAppReview.isAvailable()) {
+      _inAppReview.requestReview();
+    }
+    String url = await _getLaunchUrl() ?? '';
+    if(url != '') {
+      await launchUrl(Uri.parse(url));
+    } else {
+      Utils.toast(context, message: 'Failed to Retrieve');
+    }
+  }
+  Future<String?> _getLaunchUrl() async {
+    for (String item in _marketUrls) {
+      if (await canLaunchUrl(Uri.parse(item))) {
+        return item;
+      }
+    }
+    return null;
   }
 
   @override
@@ -185,11 +215,13 @@ class HomePageState extends State<ProfilePage> {
             borderRadius: BorderRadius.circular(16)
           ),
           child: Column(children: [
-            linkItem('Rate us', (){
-              launchUrl(Uri.parse('https://www.freeprivacypolicy.com/live/f8f77e38-89e6-4d25-85bb-25809cac41c9'));
+            linkItem('Rate us', _toRate),
+            linkItem('Privacy Policy', (){
+              launchUrl(Uri.parse(''));
             }),
-            linkItem('Privacy Policy', (){}),
-            linkItem('Terms of Services', (){}),
+            linkItem('Terms of Services', (){
+              launchUrl(Uri.parse(''));
+            }),
             Container(
               height: 58,
               margin: EdgeInsets.only(top: 8),

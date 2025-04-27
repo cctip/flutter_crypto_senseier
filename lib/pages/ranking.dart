@@ -13,20 +13,25 @@ class RankingPage extends StatefulWidget {
 }
 
 class RankingPageState extends State<RankingPage> {
-  Map get _rankingMap => RankingController.rankingMap.value;
-  late final List<String> _avatorList = [];
+  Map get _rankingMap => RankingController.rankingMap;
+  late final List _nameList = [];
 
   @override
   void initState() {
     super.initState();
+    bus.on('calcRank', (_) => calcRank());
     RankingController.init();
-    for(String avator in RankingController.rankingMap.keys) {
-      _avatorList.add(avator);
-    }
   }
-  @override
-  void dispose() {
-    super.dispose();
+  
+  // 计算排名
+  void calcRank() {
+    for (String name in _rankingMap.keys) {
+      _nameList.add({
+        'name': name,
+        'value': _rankingMap[name]['xp']
+      });
+    }
+    _nameList.sort((a, b) => b['value'].compareTo(a['value']));
   }
 
   @override
@@ -41,7 +46,7 @@ class RankingPageState extends State<RankingPage> {
         Expanded(child: CustomScrollView(slivers: [
           SliverToBoxAdapter(
             child: Container(
-              height: MediaQuery.of(context).size.height -  MediaQuery.of(context).padding.top - 56 + 500,
+              height: MediaQuery.of(context).size.height -  MediaQuery.of(context).padding.top - 56 + (_nameList.isEmpty ? 0 : 120),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -57,78 +62,9 @@ class RankingPageState extends State<RankingPage> {
                 alignment: Alignment.center,
                 children: [
                   Positioned(top: -140, child: Opacity(opacity: 0.2, child: Image.asset('assets/images/bg/rank_mask.png', width: 526, fit: BoxFit.cover))),
-                  Positioned(top: 158, child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
-                        width: 64,
-                        height: 64,
-                        padding: EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(64),
-                          color: Colors.white
-                        ),
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(64),
-                            color: Color(0xFFe0e0e0)
-                          ),
-                          child: Icon(Icons.question_mark_rounded, color: Colors.black38, size: 32),
-                        ),
-                      ),
-                      Positioned(top: -2, right: -2, child: Image.asset('assets/icons/rank_1.png', width: 24))
-                    ],
-                  )),
-                  Positioned(top: 190, left: 80, child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        padding: EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(64),
-                          color: Colors.white
-                        ),
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(64),
-                            color: Color(0xFFe0e0e0)
-                          ),
-                          child: Icon(Icons.question_mark_rounded, color: Colors.black38),
-                        ),
-                      ),
-                      Positioned(top: -2, right: -2, child: Image.asset('assets/icons/rank_2.png', width: 16))
-                    ],
-                  )),
-                  Positioned(top: 190, right: 80, child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        padding: EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(64),
-                          color: Colors.white
-                        ),
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(64),
-                            color: Color(0xFFe0e0e0)
-                          ),
-                          child: Icon(Icons.question_mark_rounded, color: Colors.black38),
-                        ),
-                      ),
-                      Positioned(top: -2, right: -2, child: Image.asset('assets/icons/rank_3.png', width: 16))
-                    ],
-                  )),
+                  Rank_1(),
+                  Rank_2(),
+                  Rank_3(),
                   Positioned(top: 232, child: Image.asset('assets/images/bg/rank_bg.png', width: 302, fit: BoxFit.cover)),
                   Positioned(top: 325, child: Container(
                     width: 370,
@@ -137,7 +73,7 @@ class RankingPageState extends State<RankingPage> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16)
                     ),
-                    child: _rankingMap.isEmpty ? EmptyBox() : RankingBox(),
+                    child: _nameList.length <= 3 ? EmptyBox() : RankingBox(),
                   )),
                   Column(
                     children: [
@@ -154,11 +90,143 @@ class RankingPageState extends State<RankingPage> {
     );
   }
 
+  Widget Rank_1() {
+    return Positioned(top: 158, child: Stack(
+      alignment: Alignment.center,
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          width: 64,
+          height: 64,
+          padding: EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(64),
+            color: Colors.white
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(64),
+              color: Color(0xFFe0e0e0)
+            ),
+            child: _nameList.isEmpty
+              ? Icon(Icons.question_mark_rounded, color: Colors.black38, size: 32)
+              : Image.asset('assets/images/avator/${_rankingMap[_nameList[0]['name']]['avator']}.png'),
+          ),
+        ),
+        Positioned(top: -2, right: -2, child: Image.asset('assets/icons/rank_1.png', width: 24)),
+        _nameList.isEmpty ? Container() : Positioned(
+          bottom: -8,
+          child: Container(
+            height: 24,
+            padding: EdgeInsets.only(right: 8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16)
+            ),
+            child: Row(children: [
+              Image.asset('assets/icons/xp.png', width: 24),
+              SizedBox(width: 4),
+              Text('${_rankingMap[_nameList[0]['name']]['xp']}', style: TextStyle(color: Color(0xFF15171C), fontWeight: FontWeight.w700))
+            ]),
+          )
+        )
+      ],
+    ));
+  }
+  Widget Rank_2() {
+    return Positioned(top: 190, left: 80, child: Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Container(
+          width: 48,
+          height: 48,
+          padding: EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(64),
+            color: Colors.white
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(64),
+              color: Color(0xFFe0e0e0)
+            ),
+            child: _nameList.length <= 1
+              ? Icon(Icons.question_mark_rounded, color: Colors.black38)
+              : Image.asset('assets/images/avator/${_rankingMap[_nameList[1]['name']]['avator']}.png'),
+          ),
+        ),
+        Positioned(top: -2, right: -2, child: Image.asset('assets/icons/rank_2.png', width: 16)),
+        _nameList.length <= 1 ? Container() : Positioned(
+          bottom: -6,
+          child: Container(
+            height: 16,
+            padding: EdgeInsets.only(right: 6),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16)
+            ),
+            child: Row(
+              children: [
+              Image.asset('assets/icons/xp.png', width: 16),
+              SizedBox(width: 4),
+              Text('${_rankingMap[_nameList[1]['name']]['xp']}', style: TextStyle(color: Color(0xFF15171C), fontSize: 12, fontWeight: FontWeight.w700))
+            ]),
+          )
+        )
+      ],
+    ));
+  }
+  Widget Rank_3() {
+    return Positioned(top: 190, right: 80, child: Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Container(
+          width: 48,
+          height: 48,
+          padding: EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(64),
+            color: Colors.white
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(64),
+              color: Color(0xFFe0e0e0)
+            ),
+            child: _nameList.length <= 2
+              ? Icon(Icons.question_mark_rounded, color: Colors.black38)
+              : Image.asset('assets/images/avator/${_rankingMap[_nameList[2]['name']]['avator']}.png'),
+          ),
+        ),
+        Positioned(top: -2, right: -2, child: Image.asset('assets/icons/rank_3.png', width: 16)),
+        _nameList.length <= 2 ? Container() : Positioned(
+          bottom: -6,
+          child: Container(
+            height: 16,
+            padding: EdgeInsets.only(right: 6),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16)
+            ),
+            child: Row(
+              children: [
+              Image.asset('assets/icons/xp.png', width: 16),
+              SizedBox(width: 4),
+              Text('${_rankingMap[_nameList[2]['name']]['xp']}', style: TextStyle(color: Color(0xFF15171C), fontSize: 12, fontWeight: FontWeight.w700))
+            ]),
+          )
+        )
+      ],
+    ));
+  }
+
   Widget EmptyBox() {
     return Column(
       children: [
         SizedBox(height: 32),
-        Text('The leaderboard is empty... for now.', style: TextStyle(color: Color(0xFF282B32), fontSize: 16, fontWeight: FontWeight.w500)),
+        _nameList.isEmpty ? Text('The leaderboard is empty... for now.', style: TextStyle(color: Color(0xFF282B32), fontSize: 16, fontWeight: FontWeight.w500)) : Container(),
         Text('Make your move!', style: TextStyle(color: Color(0xFF282B32), fontSize: 16, fontWeight: FontWeight.w500)),
         SizedBox(height: 30),
         SizedBox(
@@ -180,19 +248,20 @@ class RankingPageState extends State<RankingPage> {
     );
   }
   Widget RankingBox() {
-    return Container(
-      child: Column(children: List.generate(RankingController.rankingMap.length, (index) => SizedBox(
+    return SizedBox(
+      child: Column(children: List.generate(_nameList.length, (index) => index < 3 ? Container() : Container(
         height: 56,
+        margin: EdgeInsets.symmetric(vertical: 8),
         child: Row(children: [
-          Text('4.', style: TextStyle(color: Color(0xFF1D4ED8), fontSize: 24, fontStyle: FontStyle.italic, fontWeight: FontWeight.w900)),
-          SizedBox(width: 24),
-          Image.asset('assets/images/avator/${RankingController.rankingMap[_avatorList[index]]['avator']}.png', width: 40),
-          SizedBox(width: 8),
-          Text(_avatorList[0], style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          Text('${index+1}.', style: TextStyle(color: Color(0xFF1D4ED8), fontSize: 24, fontStyle: FontStyle.italic, fontWeight: FontWeight.w900)),
+          SizedBox(width: index >= 9 ? 10 : 24),
+          Image.asset('assets/images/avator/${_rankingMap[_nameList[index]['name']]['avator']}.png', width: 40),
+          SizedBox(width: 12),
+          Text(_nameList[index]['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
           Spacer(),
           Image.asset('assets/icons/xp.png', width: 24),
           SizedBox(width: 4),
-          Text('${RankingController.rankingMap[_avatorList[index]]['xp']}', style: TextStyle(fontWeight: FontWeight.w700))
+          Text('${_rankingMap[_nameList[index]['name']]['xp']}', style: TextStyle(fontWeight: FontWeight.w700))
         ],),
       ))),
     );
