@@ -25,6 +25,7 @@ class RankingPageState extends State<RankingPage> {
   
   // 计算排名
   void calcRank() {
+    _nameList.clear();
     for (String name in _rankingMap.keys) {
       _nameList.add({
         'name': name,

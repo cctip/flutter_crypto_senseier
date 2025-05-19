@@ -30,9 +30,8 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
   @override
   void initState() {
     super.initState();
-    initProgress();
     _controller = AnimationController(duration: Duration(seconds: 10), vsync: this);
-    _startTimer();
+    initProgress();
   }
   @override
   void dispose() {
@@ -50,6 +49,10 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
       }
     }
     CourseController.onReadSection(_curSection);
+
+    setState(() => _remainingTime = 10);
+    _controller.reset();
+    _startTimer();
   }
   void _startTimer() {
     _controller.forward();
@@ -76,12 +79,10 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
   void _onNext() {
     if (_curSection < _sections.length - 1) {
       if (_maxReadSection == _curSection) {
-        CourseController.onReadSection(_curSection + 1);
-        setState(() => _remainingTime = 10);
-        _controller.reset();
-        _startTimer();
+        initProgress();
+      } else {
+        setState(() => _curSection += 1);
       }
-      setState(() => _curSection += 1);
     }
   }
   void _onFinish() {
@@ -185,7 +186,7 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
                                 width: 8,
                                 height: 8,
                                 decoration: BoxDecoration(
-                                  color: _curSection == index ? Colors.black : Colors.transparent,
+                                  color: _curSection == index ? Color(0xFF6A2BED) : Colors.transparent,
                                   borderRadius: BorderRadius.circular(8)
                                 ),
                               )
@@ -247,7 +248,7 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
     return Container(
       width: MediaQuery.of(context).size.width - 64,
       height: 54,
-      margin: EdgeInsets.only(top: 32, left: 16),
+      margin: EdgeInsets.only(top: 32),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Color.fromRGBO(21, 23, 28, 0.35),
