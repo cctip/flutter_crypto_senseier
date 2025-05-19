@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 
 class SenseController extends GetxController {
   static final List<String> chapters = [
-    'What Is Cryptocurrency?',
-    'Basics of Bitcoin',
-    'The History and Evolution of Cryptocurrency',
-    'Types of Cryptocurrency Wallets and How to Create One',
-    'How to Buy and Sell Cryptocurrency',
-    'Understanding Basic Security Measures to Avoid Scams and Phishing Attacks',
-    'Basic Chart Analysis in the Cryptocurrency Market',
-    'Explaining Common Cryptocurrency Terminology and Abbreviations',
+    'In-Depth Study of Major Cryptocurrencies (Bitcoin, Ethereum, Litecoin, etc.)',
+    'A Detailed Understanding of Blockchain Technology and Principles',
+    'Introduction to Smart Contracts and How to Write Them',
+    'Cryptocurrency Investment Strategies and Risk Management',
+    'Exploring Different Exchange Options and Advanced Trading Tools',
+    'Deep Dive into Cryptocurrency Taxation and Regulations',
+    'Cryptocurrency Mining and the Various Consensus Mechanisms',
+    'In-Depth Look into the World of Decentralized Finance (DeFi)',
   ];
   static final readIndex = RxInt(0); // 当前阅读常识
   static final isReaded = RxBool(false);
