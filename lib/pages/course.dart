@@ -92,10 +92,10 @@ class CoursePageState extends State<CoursePage> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFF1D4ED8),
+            Color(0xFF6A2BED),
             Color(0xFF4C1AE2),
           ],
-          stops: [0, 1], // 调整渐变范围
+          stops: [0, 0.8], // 调整渐变范围
         ),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24), bottomRight: Radius.circular(24))
       ),
@@ -192,6 +192,7 @@ class CoursePageState extends State<CoursePage> {
   }
   Widget FavoritesItem(index) {
     List themes = ['green', 'cyan', 'blue', 'purple'];
+    List colors = [Color(0xFF15171C), Color(0xFF15171C), Color(0xFFF1F5F9), Color(0xFFF1F5F9)];
     return Container(
       width: 177,
       height: 184,
@@ -229,7 +230,7 @@ class CoursePageState extends State<CoursePage> {
           ]
         ),
         SizedBox(height: 12),
-        Text(_topics[int.parse(_favorites[index].split('_')[2])]['title'], style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700, height: 1.2)),
+        Text(_topics[int.parse(_favorites[index].split('_')[2])]['title'], style: TextStyle(color: colors[int.parse(_favorites[index].split('_')[2])%4], fontWeight: FontWeight.w700, height: 1.2)),
         Spacer(),
         Container(
           height: 8,
@@ -263,7 +264,7 @@ class CoursePageState extends State<CoursePage> {
               Text('Current chapter', style: TextStyle(color: Color(0xFF15171C), fontSize: 18, fontWeight: FontWeight.w700)),
               GestureDetector(
                 onTap: () => Get.toNamed('/chapter'),
-                child: Text('More', style: TextStyle(color: Color(0xFF1D4ED8), fontWeight: FontWeight.w500)),
+                child: Text('More', style: TextStyle(color: Color(0xFF6A2BED), fontWeight: FontWeight.w500)),
               )
             ],
           ),
@@ -277,7 +278,7 @@ class CoursePageState extends State<CoursePage> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   decoration: BoxDecoration(
-                    color: Color(0xFF1D4ED8),
+                    color: Color(0xFF6A2BED),
                     borderRadius: BorderRadius.circular(16)
                   ),
                   child: Column(

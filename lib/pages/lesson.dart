@@ -119,6 +119,7 @@ class LessonPageState extends State<LessonPage> {
       'rectangle_blue',
       'rectangle_purple',
     ];
+    List colors = [Color(0xFF15171C), Color(0xFF15171C), Color(0xFFF1F5F9), Color(0xFFF1F5F9)];
     return Wrap(
       spacing: 12,
       runSpacing: 12,
@@ -155,7 +156,7 @@ class LessonPageState extends State<LessonPage> {
               ]
             ),
             SizedBox(height: 24),
-            Obx(() => Text(_topics[index]['title'], style: TextStyle(color: Color(0xFF282B32), fontWeight: FontWeight.w700, height: 1.2))),
+            Obx(() => Text(_topics[index]['title'], style: TextStyle(color: colors[index%4], fontWeight: FontWeight.w700, height: 1.2))),
             Spacer(),
             Container(
               width: MediaQuery.of(context).size.width,

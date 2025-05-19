@@ -65,7 +65,7 @@ class ChapterPageState extends State<ChapterPage> {
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               decoration: BoxDecoration(
-                color: Color(0xFF1D4ED8),
+                color: Color(0xFF6A2BED),
                 borderRadius: BorderRadius.circular(16)
               ),
               child: Column(

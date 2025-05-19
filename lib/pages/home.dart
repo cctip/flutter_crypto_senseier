@@ -69,8 +69,8 @@ class HomePageState extends State<HomePage> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFF1D4ED8),
             Color(0xFF4C1AE2),
+            Color(0xFF6A2BED),
           ],
           stops: [0, 1], // 调整渐变范围
         ),
@@ -194,7 +194,7 @@ class HomePageState extends State<HomePage> {
               ))
             ]),
           ),
-          Positioned(top: -16, child: Image.asset('assets/icons/tab_trader_disabled.png', width: 56))
+          Positioned(top: -16, child: Image.asset('assets/icons/tab_trader.png', width: 56))
         ],
       ),
     );
@@ -243,7 +243,7 @@ class HomePageState extends State<HomePage> {
               ))
             ]),
           ),
-          Positioned(top: -16, child: Image.asset('assets/icons/tab_oracle_disabled.png', width: 56))
+          Positioned(top: -16, child: Image.asset('assets/icons/tab_oracle.png', width: 56))
         ],
       ),
     );
@@ -273,7 +273,7 @@ class HomePageState extends State<HomePage> {
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                 foregroundColor: Colors.white,
-                backgroundColor: Color(0xFF15171C),
+                backgroundColor: Color(0xFF6A2BED),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
               onPressed: UserController.readedToday.value && !UserController.rewordReaded.value ? _claimTaskLesson : null,
@@ -300,7 +300,7 @@ class HomePageState extends State<HomePage> {
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                 foregroundColor: Colors.white,
-                backgroundColor: Color(0xFF15171C),
+                backgroundColor: Color(0xFF6A2BED),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
               onPressed: UserController.battleToday.value && !UserController.rewordBattle.value ? _claimTaskDuel : null,

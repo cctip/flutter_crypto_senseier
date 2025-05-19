@@ -123,14 +123,7 @@ class CommonSenseState extends State<CommonSense> with SingleTickerProviderState
   @override
   Widget build(BuildContext context) {
     return Material(child: Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF1D4ED8), Color(0xFF4C1AE2)],
-          stops: [0, 1], // 调整渐变范围
-        ),
-      ),
+      color: Color(0xFFE2E8F0),
       child: Column(
         children: [
           AppBar(
@@ -139,10 +132,10 @@ class CommonSenseState extends State<CommonSense> with SingleTickerProviderState
               onTap: () => Get.back(),
               child: Icon(Icons.close_rounded),
             ),
-            iconTheme: IconThemeData(color: Colors.white),
+            iconTheme: IconThemeData(color: Colors.black),
             centerTitle: true,
             title: Text('Common Sense', style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 18,
               fontWeight: FontWeight.bold
             )),
@@ -153,15 +146,20 @@ class CommonSenseState extends State<CommonSense> with SingleTickerProviderState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Why invest in crypto?', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700)),
+                Text('Why invest in crypto?', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700)),
                 SizedBox(height: 16),
                 Expanded(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     clipBehavior: Clip.none,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24)
+                      borderRadius: BorderRadius.circular(24),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFF6A2BED), Color(0xFF4C1AE2)],
+                        stops: [0, 1], // 调整渐变范围
+                      ),
                     ),
                     child: Stack(clipBehavior: Clip.none, children: [
                       CustomScrollView(slivers: [
@@ -191,13 +189,13 @@ class CommonSenseState extends State<CommonSense> with SingleTickerProviderState
   Widget TextTitle(text) {
     return Container(
       padding: EdgeInsets.only(bottom: 8),
-      child: Text(text, style: TextStyle(color: Color(0xFF15171C), fontSize: 16, fontWeight: FontWeight.w700, height: 1.8)),
+      child: Text(text, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700, height: 1.8)),
     );
   }
   Widget TextContent(text) {
     return Container(
       padding: EdgeInsets.only(bottom: 16),
-      child: Text(text, style: TextStyle(color: Color(0xFF494D55), fontSize: 16, fontWeight: FontWeight.w500, height: 1.3)),
+      child: Text(text, style: TextStyle(color: Color(0xFFE2E8F0), fontSize: 16, fontWeight: FontWeight.w500, height: 1.3)),
     );
   }
   Widget Sense_1() {
@@ -536,14 +534,14 @@ class CommonSenseState extends State<CommonSense> with SingleTickerProviderState
       margin: EdgeInsets.only(top: 40, left: 16),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: Color.fromRGBO(21, 23, 28, 0.35),
-        borderRadius: BorderRadius.circular(24)
+        color: Color.fromRGBO(106, 43, 237, 0.35),
+        borderRadius: BorderRadius.circular(16)
       ),
       child: _remainingTime == 0 ? ElevatedButton(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Color(0xFF15171C),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+            backgroundColor: Color(0xFF4C1AE2),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
           onPressed: _onFinish,
           child: Text('Finish', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700))
@@ -557,8 +555,8 @@ class CommonSenseState extends State<CommonSense> with SingleTickerProviderState
                 width: (MediaQuery.of(context).size.width - 64) * _animation.value,
                 height: 54,
                 decoration: BoxDecoration(
-                  color: Color(0xFF15171C),
-                  borderRadius: BorderRadius.circular(24)
+                  color: Color(0xFF4C1AE2),
+                  borderRadius: BorderRadius.circular(16)
                 ),
               );
             },

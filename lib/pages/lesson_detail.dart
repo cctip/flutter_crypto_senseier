@@ -96,7 +96,7 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF1D4ED8), Color(0xFF4C1AE2)],
+          colors: [Color(0xFF6A2BED), Color(0xFF4C1AE2)],
           stops: [0, 1], // 调整渐变范围
         ),
       ),
@@ -127,7 +127,10 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
   Widget PageHeader() {
     return Column(
       children: [
-        Obx(() => Text(_curTopicObj['title'], style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700), textAlign: TextAlign.center)),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Obx(() => Text(_curTopicObj['title'], style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700), textAlign: TextAlign.center))
+        ),
         SizedBox(height: 16),
         LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
           return ConstrainedBox(
@@ -141,7 +144,7 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
                     height: 6,
                     margin: EdgeInsets.only(top: 9, left: 8, right: 8),
                     decoration: BoxDecoration(
-                      color: Color(0xFF989BEE),
+                      color: Color(0xFF9268F1),
                       borderRadius: BorderRadius.circular(6)
                     ),
                     child: Row(children: [
@@ -172,7 +175,7 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
                           width: 14,
                           height: 14,
                           decoration: BoxDecoration(
-                            color: _maxReadSection >= index ? Colors.white : Color(0xFF989BEE),
+                            color: _maxReadSection >= index ? Colors.white : Color(0xFF9268F1),
                             borderRadius: BorderRadius.circular(24)
                           ),
                           child: Row(
@@ -248,13 +251,13 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Color.fromRGBO(21, 23, 28, 0.35),
-        borderRadius: BorderRadius.circular(24)
+        borderRadius: BorderRadius.circular(16)
       ),
       child: _remainingTime == 0 ? ElevatedButton(
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Color(0xFF15171C),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+            foregroundColor: Color(0xFF6A2BED),
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
           onPressed: _maxReadSection == _sections.length - 1 ? _onFinish : _onNext,
           child: Text(_maxReadSection == _sections.length - 1 ? 'Finish' : 'Next', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700))
@@ -268,13 +271,13 @@ class LessonDetailState extends State<LessonDetail> with SingleTickerProviderSta
                 width: (MediaQuery.of(context).size.width - 64) * _animation.value,
                 height: 54,
                 decoration: BoxDecoration(
-                  color: Color(0xFF15171C),
-                  borderRadius: BorderRadius.circular(24)
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16)
                 ),
               );
             },
           )),
-          Positioned(child: Text('${_remainingTime}s', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700)))
+          Positioned(child: Text('${_remainingTime}s', style: TextStyle(color: Color(0xFF6A2BED), fontSize: 18, fontWeight: FontWeight.w700)))
         ]
       ),
     );
