@@ -230,7 +230,7 @@ class HomePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Version', style: TextStyle(color: Color(0xFF282B32), fontSize: 16, fontWeight: FontWeight.w500)),
-                  Text('V1.0.0', style: TextStyle(color: Color(0xFFA2A6AF), fontSize: 12, fontWeight: FontWeight.w500)),
+                  Text('V1.1.0', style: TextStyle(color: Color(0xFFA2A6AF), fontSize: 12, fontWeight: FontWeight.w500)),
                 ],
               ),
             )
