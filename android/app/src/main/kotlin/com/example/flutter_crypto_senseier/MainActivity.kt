@@ -1,4 +1,4 @@
-package com.hxtools.cryptobuddy
+package com.hxtools.blocknerd
 
 import io.flutter.embedding.android.FlutterActivity
 

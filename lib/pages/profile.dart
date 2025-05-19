@@ -81,8 +81,8 @@ class HomePageState extends State<ProfilePage> {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF1D4ED8), Color(0xFF4C1AE2)],
-          stops: [0, 1], // 调整渐变范围
+          colors: [Color(0xFF6A2BED), Color(0xFF4C1AE2)],
+          stops: [0, 0.5], // 调整渐变范围
         ),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24), bottomRight: Radius.circular(24))
       ),
@@ -197,7 +197,7 @@ class HomePageState extends State<ProfilePage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
         Text(title, style: TextStyle(color: Color(0xFFA2A6AF), fontSize: 12, fontWeight: FontWeight.w500)),
-        Text('$count', style: TextStyle(color: Color(0xFF1D4ED8), fontSize: 20, fontWeight: FontWeight.w900)),
+        Text('$count', style: TextStyle(color: Color(0xFF6A2BED), fontSize: 20, fontWeight: FontWeight.w900)),
       ]),
     ));
   }

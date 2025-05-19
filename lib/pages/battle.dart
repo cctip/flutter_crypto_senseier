@@ -48,10 +48,37 @@ class BattlePageState extends State<BattlePage> with SingleTickerProviderStateMi
         child: Stack(
         alignment: Alignment.center,
         children: [
+          Positioned(top: 400, right: 0, child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 112,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft,
+                colors: [
+                  Color.fromRGBO(246, 164, 10, 0),
+                  Color(0xFFF6A40A),
+                  Color.fromRGBO(246, 164, 10, 0),
+                ],
+                stops: [0, 0.5, 0], // 调整渐变范围
+              ),
+            ),
+          )),
           Positioned(top: 400, child: Container(
             width: MediaQuery.of(context).size.width,
             height: 112,
-            color: Color(0xFF15171C),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Color.fromRGBO(246, 164, 10, 0),
+                  Color(0xFFF6A40A),
+                  Color.fromRGBO(246, 164, 10, 0),
+                ],
+                stops: [0, 0.5, 0], // 调整渐变范围
+              ),
+            ),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -102,9 +129,9 @@ class BattlePageState extends State<BattlePage> with SingleTickerProviderStateMi
                   height: 54,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Color(0xFF15171C),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                      foregroundColor: Color(0xFF6A2BED),
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     ),
                     onPressed: _onStartBattle,
                     child: Text('Free Start', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700))

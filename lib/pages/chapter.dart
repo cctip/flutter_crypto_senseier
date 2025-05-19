@@ -117,7 +117,7 @@ class ChapterPageState extends State<ChapterPage> {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               decoration: BoxDecoration(
                 color: _deepChapter > index ? Colors.white : Color(0xFFE2E8F0),
-                border: Border.all(color: _deepChapter > index ? Color(0xFF1D4ED8) : Colors.transparent, width: 1),
+                border: Border.all(color: _deepChapter > index ? Color(0xFF6A2BED) : Colors.transparent, width: 1),
                 borderRadius: BorderRadius.circular(16)
               ),
               child: Column(

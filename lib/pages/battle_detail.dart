@@ -88,7 +88,7 @@ class BattleDetailState extends State<BattleDetail> {
                 child: Image.asset('assets/images/bg/well_done.png', width: MediaQuery.of(context).size.width)
               ),
               Positioned(
-                top: MediaQuery.of(context).padding.top + 286,
+                top: MediaQuery.of(context).padding.top + 304,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width - 80,
                   height: 272,
@@ -246,11 +246,11 @@ class BattleDetailState extends State<BattleDetail> {
               height: 48,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Color.fromRGBO(29, 78, 216, 0.15),
-                border: Border.all(color: Color(0xFF1D4ED8), width: 2),
+                color: Color.fromRGBO(106, 43, 237, 0.2),
+                border: Border.all(color: Color(0xFF6A2BED), width: 2),
                 borderRadius: BorderRadius.circular(48)
               ),
-              child: Text('${_remainingTime}s', style: TextStyle(color: Color(0xFF1D4ED8), fontSize: 16, fontWeight: FontWeight.w700),),
+              child: Text('${_remainingTime}s', style: TextStyle(color: Color(0xFF6A2BED), fontSize: 16, fontWeight: FontWeight.w700),),
             ),
             SizedBox(height: 16),
             Expanded(child: Column(
@@ -279,9 +279,9 @@ class BattleDetailState extends State<BattleDetail> {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: _chooseAnswer == index ? [Color(0xFF1D4ED8),Color(0xFF4C1AE2)] :
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: _chooseAnswer == index ? [Color(0xFF6A2BED),Color(0xFF4C1AE2)] :
                       _opponentAnswer == index ? [Color.fromRGBO(76, 26, 226, 0.25), Color.fromRGBO(76, 26, 226, 0.25)] : [Color(0xFFF1F5F9), Color(0xFFF1F5F9)],
                 stops: [0, 1], // 调整渐变范围
               ),

@@ -46,14 +46,14 @@ class RankingPageState extends State<RankingPage> {
         Expanded(child: CustomScrollView(slivers: [
           SliverToBoxAdapter(
             child: Container(
-              height: MediaQuery.of(context).size.height -  MediaQuery.of(context).padding.top - 56 + (_nameList.isEmpty ? 0 : 120),
+              height: MediaQuery.of(context).size.height -  MediaQuery.of(context).padding.top - 56 + (_nameList.isEmpty ? 0 : 200),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color(0xFF1D4ED8),
                     Color(0xFF4C1AE2),
+                    Color(0xFF6A2BED),
                   ],
                   stops: [0, 1], // 调整渐变范围
                 ),
@@ -235,7 +235,7 @@ class RankingPageState extends State<RankingPage> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: Color(0xFF15171C),
+              backgroundColor: Color(0xFF4C1AE2),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
             ),
             onPressed: () {
@@ -253,7 +253,7 @@ class RankingPageState extends State<RankingPage> {
         height: 56,
         margin: EdgeInsets.symmetric(vertical: 8),
         child: Row(children: [
-          Text('${index+1}.', style: TextStyle(color: Color(0xFF1D4ED8), fontSize: 24, fontStyle: FontStyle.italic, fontWeight: FontWeight.w900)),
+          Text('${index+1}.', style: TextStyle(color: Color(0xFF6A2BED), fontSize: 24, fontStyle: FontStyle.italic, fontWeight: FontWeight.w900)),
           SizedBox(width: index >= 9 ? 10 : 24),
           Image.asset('assets/images/avator/${_rankingMap[_nameList[index]['name']]['avator']}.png', width: 40),
           SizedBox(width: 12),
