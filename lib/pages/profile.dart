@@ -217,10 +217,10 @@ class HomePageState extends State<ProfilePage> {
           child: Column(children: [
             linkItem('Rate us', _toRate),
             linkItem('Privacy Policy', (){
-              launchUrl(Uri.parse('https://www.freeprivacypolicy.com/live/41e43b5d-e73e-451f-ac00-5838508ff035'));
+              launchUrl(Uri.parse('https://sites.google.com/view/blocknerd-p/privacy'));
             }),
             linkItem('Terms of Services', (){
-              launchUrl(Uri.parse('https://www.freeprivacypolicy.com/live/10e585c9-bcf8-4603-a6c0-78274ea108b4'));
+              launchUrl(Uri.parse('https://sites.google.com/view/blocknerd-t/terms-and-conditions'));
             }),
             Container(
               height: 58,
