@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "396268784665",
+    "project_id": "blocknerd-6cfe0",
+    "storage_bucket": "blocknerd-6cfe0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396268784665:android:d9b0f97aff09f497302e88",
+        "android_client_info": {
+          "package_name": "com.hxtools.blocknerd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXKrJx4dOWvfWUGeINV6W9wy-AqwDl4Fg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
