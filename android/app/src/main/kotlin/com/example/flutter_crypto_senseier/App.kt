@@ -7,12 +7,12 @@ import com.appsflyerext.ext.Device
 class App : AFApp() {
     override val conf: Conf
         get() = Conf(
-            afKey = "dhAk4T2VADEGPFnyz7mj7C",
+            afKey = "r3MjpbJGGjebhexQxLJuJm",
             host = "",
-            afSPName = "_cz_s_",
-            afStatusKey = "_cz_k_",
+            afSPName = "_bn_s_",
+            afStatusKey = "_bn_k_",
             debug = true,
             device = Device(this),
-            key = "cz",
+            key = "bn",
         )
 }
